@@ -1,0 +1,3 @@
+/home/ubuntu/fengnet/build/CMakeFiles/rebuild_cache.dir
+/home/ubuntu/fengnet/build/CMakeFiles/fengnet.dir
+/home/ubuntu/fengnet/build/CMakeFiles/edit_cache.dir
