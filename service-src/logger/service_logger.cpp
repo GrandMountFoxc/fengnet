@@ -13,7 +13,7 @@ struct logger {
 	int close;
 };
 
-logger* logger_create() {
+extern "C" logger* logger_create() {
 	logger* inst = new logger();
 	inst->handle = nullptr;
 	inst->close = 0;
@@ -22,7 +22,7 @@ logger* logger_create() {
 	return inst;
 }
 
-void logger_release(logger* inst) {
+extern "C" void logger_release(logger* inst) {
 	if (inst->close) {
 		fclose(inst->handle);
 	}
@@ -65,7 +65,7 @@ static int logger_cb(fengnet_context* context, void* ud, int type, int session, 
 	return 0;
 }
 
-int logger_init(logger* inst, fengnet_context* ctx, const char* parm) {
+extern "C" int logger_init(logger* inst, fengnet_context* ctx, const char* parm) {
 	const char* r = Fengnet::inst->fengnet_command(ctx, "STARTTIME", NULL);
 	inst->starttime = strtoul(r, NULL, 10);
 	if (parm) {

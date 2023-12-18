@@ -3,7 +3,7 @@ aux_source_directory(${CMAKE_SOURCE_DIR}/fengnet-src DIR_SRCS)
 # 添加库文件路径
 link_directories(${CMAKE_SOURCE_DIR}/3rd/lua-5.4.6/src/)
 link_directories(${CMAKE_SOURCE_DIR}/3rd/jemalloc/lib/)
-# 指定生成目标文件
+# 指定生成可执行文件
 add_executable(fengnet ${DIR_SRCS})
 # 库文件
 find_package (Threads)

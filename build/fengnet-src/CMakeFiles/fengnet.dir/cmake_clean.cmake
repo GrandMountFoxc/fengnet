@@ -16,8 +16,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/fengnet.dir/fengnet_timer.cpp.o"
   "CMakeFiles/fengnet.dir/malloc_hook.cpp.o"
   "CMakeFiles/fengnet.dir/socket_server.cpp.o"
-  "fengnet.pdb"
-  "fengnet"
+  "../../fengnet.pdb"
+  "../../fengnet"
 )
 
 # Per-language clean rules from dependency scanning.

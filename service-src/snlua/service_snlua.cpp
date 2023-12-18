@@ -485,7 +485,7 @@ static int launch_cb(fengnet_context * context, void *ud, int type, int session,
 	return 0;
 }
 
-int snlua_init(snlua *l, fengnet_context *ctx, const char * args) {
+extern "C" int snlua_init(snlua *l, fengnet_context *ctx, const char * args) {
 	int sz = strlen(args);
 	char * tmp = new char[sz];
 	memcpy(tmp, args, sz);
@@ -519,7 +519,7 @@ static void* lalloc(void * ud, void *ptr, size_t osize, size_t nsize) {
 	return fengnet_lalloc(ptr, osize, nsize);
 }
 
-snlua* snlua_create() {
+extern "C" snlua* snlua_create() {
 	snlua * l = new snlua();
 	memset(l,0,sizeof(*l));
 	l->mem_report = MEMORY_WARNING_REPORT;
@@ -535,12 +535,12 @@ snlua* snlua_create() {
 	return l;
 }
 
-void snlua_release(snlua *l) {
+extern "C" void snlua_release(snlua *l) {
 	lua_close(l->L);
 	delete l;
 }
 
-void snlua_signal(snlua *l, int signal) {
+extern "C" void snlua_signal(snlua *l, int signal) {
 	Fengnet::inst->fengnet_error(l->ctx, "recv a signal %d", signal);
 	if (signal == 0) {
 		if (atomic_load(&l->trap) == 0) {

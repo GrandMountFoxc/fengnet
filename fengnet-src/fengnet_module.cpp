@@ -15,7 +15,7 @@ void* FengnetModule::_try_open(modules *m, const char * name) {
 
 	int sz = path_size + name_size + 3;
 	//search path
-	void * dl = NULL;
+	void * dl = nullptr;
 	char tmp[sz];
 	do
 	{
@@ -25,7 +25,7 @@ void* FengnetModule::_try_open(modules *m, const char * name) {
 		// char *strchr(const char *str, int c) strchr() 
 		// 用于查找字符串中的一个字符，并返回该字符在字符串中第一次出现的位置。
 		l = strchr(path, ';');		
-		if (l == NULL) l = path + strlen(path);	// 如果没找到；就说明只有一个动态库路径了，直接让l指向\0
+		if (l == nullptr) l = path + strlen(path);	// 如果没找到；就说明只有一个动态库路径了，直接让l指向\0
 		int len = l - path;
 		int i;
 		for (i=0;path[i]!='?' && i < len ;i++) {
@@ -43,9 +43,9 @@ void* FengnetModule::_try_open(modules *m, const char * name) {
 		// RTLD_GLOBAL：动态库中定义的符号可被其后打开的其它库重定位。
 		dl = dlopen(tmp, RTLD_NOW | RTLD_GLOBAL);
 		path = l;
-	}while(dl == NULL);
+	}while(dl == nullptr);
 
-	if (dl == NULL) {
+	if (dl == nullptr) {
 		fprintf(stderr, "try open %s failed : %s\n",prefix,dlerror());
 	}
 
@@ -77,7 +77,7 @@ void* FengnetModule::get_api(fengnet_module *mod, const char *api_name) {
 	// 在参数 str 所指向的字符串中搜索最后一次出现字符 c（一个无符号字符）的位置。
 	// 和strchr相反，strchr找第一个，strrchr找最后一个
 	char *ptr = strrchr(tmp, '.');
-	if (ptr == NULL) {
+	if (ptr == nullptr) {
 		ptr = tmp;
 	} else {
 		ptr = ptr + 1;
@@ -93,7 +93,7 @@ int FengnetModule::open_sym(fengnet_module *mod) {
 	mod->release = reinterpret_cast<fengnet_dl_release>(get_api(mod, "_release"));
 	mod->signal = reinterpret_cast<fengnet_dl_signal>(get_api(mod, "_signal"));	// logger库里面没有logger_signal，这种情况下返回值为NULL
 
-	return mod->init == NULL;	// 这里就相当于判断了这个动态有没有初始化函数，如果连初始化函数都没有就不用加载了
+	return mod->init == nullptr;	// 这里就相当于判断了这个动态有没有初始化函数，如果连初始化函数都没有就不用加载了
 }
 
 fengnet_module* FengnetModule::fengnet_module_query(const char * name) {
@@ -105,7 +105,7 @@ fengnet_module* FengnetModule::fengnet_module_query(const char * name) {
 
 	result = _query(name); // double check 单例模式的双检锁？
 
-	if (result == NULL && M->count < MAX_MODULE_TYPE) {
+	if (result == nullptr && M->count < MAX_MODULE_TYPE) {
 		int index = M->count;
 		void* dl = _try_open(M,name);	// 打开动态库文件
 		if (dl) {
