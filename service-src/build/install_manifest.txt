@@ -1,0 +1,2 @@
+/usr/local/lib/liblogger.so
+/usr/local/lib/libsnlua.so

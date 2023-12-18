@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC   -shared -Wl,-soname,libsnlua.so -o /home/ubuntu/fengnet/cservice/libsnlua.so CMakeFiles/snlua.dir/snlua/service_snlua.cpp.o 
