@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC  -O0 -g2 -ggdb  -shared -Wl,-soname,libsnlua.so -o ../../cservice/libsnlua.so CMakeFiles/snlua.dir/snlua/service_snlua.cpp.o 

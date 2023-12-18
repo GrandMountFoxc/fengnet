@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC  -O0 -g2 -ggdb  -shared -Wl,-soname,liblogger.so -o ../../cservice/liblogger.so CMakeFiles/logger.dir/logger/service_logger.cpp.o 

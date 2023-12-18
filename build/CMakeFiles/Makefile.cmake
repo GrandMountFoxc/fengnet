@@ -11,6 +11,8 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/3.10.2/CMakeCCompiler.cmake"
   "CMakeFiles/3.10.2/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.10.2/CMakeSystem.cmake"
+  "../fengnet-src/CMakeLists.txt"
+  "../service-src/CMakeLists.txt"
   "/usr/share/cmake-3.10/Modules/CMakeCInformation.cmake"
   "/usr/share/cmake-3.10/Modules/CMakeCXXInformation.cmake"
   "/usr/share/cmake-3.10/Modules/CMakeCommonLanguageInclude.cmake"
@@ -44,9 +46,13 @@ set(CMAKE_MAKEFILE_OUTPUTS
 # Byproducts of CMake generate step:
 set(CMAKE_MAKEFILE_PRODUCTS
   "CMakeFiles/CMakeDirectoryInformation.cmake"
+  "service-src/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "fengnet-src/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/fengnet.dir/DependInfo.cmake"
+  "service-src/CMakeFiles/snlua.dir/DependInfo.cmake"
+  "service-src/CMakeFiles/logger.dir/DependInfo.cmake"
+  "fengnet-src/CMakeFiles/fengnet.dir/DependInfo.cmake"
   )

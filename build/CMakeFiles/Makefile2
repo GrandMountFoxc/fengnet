@@ -60,39 +60,151 @@ CMAKE_SOURCE_DIR = /home/ubuntu/fengnet
 CMAKE_BINARY_DIR = /home/ubuntu/fengnet/build
 
 #=============================================================================
-# Target rules for target CMakeFiles/fengnet.dir
+# Directory level rules for directory service-src
+
+# Convenience name for "all" pass in the directory.
+service-src/all: service-src/CMakeFiles/snlua.dir/all
+service-src/all: service-src/CMakeFiles/logger.dir/all
+
+.PHONY : service-src/all
+
+# Convenience name for "clean" pass in the directory.
+service-src/clean: service-src/CMakeFiles/snlua.dir/clean
+service-src/clean: service-src/CMakeFiles/logger.dir/clean
+
+.PHONY : service-src/clean
+
+# Convenience name for "preinstall" pass in the directory.
+service-src/preinstall:
+
+.PHONY : service-src/preinstall
+
+#=============================================================================
+# Target rules for target service-src/CMakeFiles/snlua.dir
 
 # All Build rule for target.
-CMakeFiles/fengnet.dir/all:
-	$(MAKE) -f CMakeFiles/fengnet.dir/build.make CMakeFiles/fengnet.dir/depend
-	$(MAKE) -f CMakeFiles/fengnet.dir/build.make CMakeFiles/fengnet.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ubuntu/fengnet/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18 "Built target fengnet"
-.PHONY : CMakeFiles/fengnet.dir/all
+service-src/CMakeFiles/snlua.dir/all:
+	$(MAKE) -f service-src/CMakeFiles/snlua.dir/build.make service-src/CMakeFiles/snlua.dir/depend
+	$(MAKE) -f service-src/CMakeFiles/snlua.dir/build.make service-src/CMakeFiles/snlua.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ubuntu/fengnet/build/CMakeFiles --progress-num=21,22 "Built target snlua"
+.PHONY : service-src/CMakeFiles/snlua.dir/all
 
 # Include target in all.
-all: CMakeFiles/fengnet.dir/all
+all: service-src/CMakeFiles/snlua.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/fengnet.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/fengnet/build/CMakeFiles 18
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/fengnet.dir/all
+service-src/CMakeFiles/snlua.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/fengnet/build/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 service-src/CMakeFiles/snlua.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/fengnet/build/CMakeFiles 0
-.PHONY : CMakeFiles/fengnet.dir/rule
+.PHONY : service-src/CMakeFiles/snlua.dir/rule
 
 # Convenience name for target.
-fengnet: CMakeFiles/fengnet.dir/rule
+snlua: service-src/CMakeFiles/snlua.dir/rule
+
+.PHONY : snlua
+
+# clean rule for target.
+service-src/CMakeFiles/snlua.dir/clean:
+	$(MAKE) -f service-src/CMakeFiles/snlua.dir/build.make service-src/CMakeFiles/snlua.dir/clean
+.PHONY : service-src/CMakeFiles/snlua.dir/clean
+
+# clean rule for target.
+clean: service-src/CMakeFiles/snlua.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target service-src/CMakeFiles/logger.dir
+
+# All Build rule for target.
+service-src/CMakeFiles/logger.dir/all:
+	$(MAKE) -f service-src/CMakeFiles/logger.dir/build.make service-src/CMakeFiles/logger.dir/depend
+	$(MAKE) -f service-src/CMakeFiles/logger.dir/build.make service-src/CMakeFiles/logger.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ubuntu/fengnet/build/CMakeFiles --progress-num=19,20 "Built target logger"
+.PHONY : service-src/CMakeFiles/logger.dir/all
+
+# Include target in all.
+all: service-src/CMakeFiles/logger.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+service-src/CMakeFiles/logger.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/fengnet/build/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 service-src/CMakeFiles/logger.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/fengnet/build/CMakeFiles 0
+.PHONY : service-src/CMakeFiles/logger.dir/rule
+
+# Convenience name for target.
+logger: service-src/CMakeFiles/logger.dir/rule
+
+.PHONY : logger
+
+# clean rule for target.
+service-src/CMakeFiles/logger.dir/clean:
+	$(MAKE) -f service-src/CMakeFiles/logger.dir/build.make service-src/CMakeFiles/logger.dir/clean
+.PHONY : service-src/CMakeFiles/logger.dir/clean
+
+# clean rule for target.
+clean: service-src/CMakeFiles/logger.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Directory level rules for directory fengnet-src
+
+# Convenience name for "all" pass in the directory.
+fengnet-src/all: fengnet-src/CMakeFiles/fengnet.dir/all
+
+.PHONY : fengnet-src/all
+
+# Convenience name for "clean" pass in the directory.
+fengnet-src/clean: fengnet-src/CMakeFiles/fengnet.dir/clean
+
+.PHONY : fengnet-src/clean
+
+# Convenience name for "preinstall" pass in the directory.
+fengnet-src/preinstall:
+
+.PHONY : fengnet-src/preinstall
+
+#=============================================================================
+# Target rules for target fengnet-src/CMakeFiles/fengnet.dir
+
+# All Build rule for target.
+fengnet-src/CMakeFiles/fengnet.dir/all:
+	$(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/depend
+	$(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ubuntu/fengnet/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18 "Built target fengnet"
+.PHONY : fengnet-src/CMakeFiles/fengnet.dir/all
+
+# Include target in all.
+all: fengnet-src/CMakeFiles/fengnet.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+fengnet-src/CMakeFiles/fengnet.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/fengnet/build/CMakeFiles 18
+	$(MAKE) -f CMakeFiles/Makefile2 fengnet-src/CMakeFiles/fengnet.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/fengnet/build/CMakeFiles 0
+.PHONY : fengnet-src/CMakeFiles/fengnet.dir/rule
+
+# Convenience name for target.
+fengnet: fengnet-src/CMakeFiles/fengnet.dir/rule
 
 .PHONY : fengnet
 
 # clean rule for target.
-CMakeFiles/fengnet.dir/clean:
-	$(MAKE) -f CMakeFiles/fengnet.dir/build.make CMakeFiles/fengnet.dir/clean
-.PHONY : CMakeFiles/fengnet.dir/clean
+fengnet-src/CMakeFiles/fengnet.dir/clean:
+	$(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/clean
+.PHONY : fengnet-src/CMakeFiles/fengnet.dir/clean
 
 # clean rule for target.
-clean: CMakeFiles/fengnet.dir/clean
+clean: fengnet-src/CMakeFiles/fengnet.dir/clean
 
 .PHONY : clean
 
