@@ -132,10 +132,10 @@ fengnet_context * FengnetServer::fengnet_context_new(const char * name, const ch
 		// 这里的释放就显得有些奇怪了
 		// 从skynet_context_release函数里面看不是单纯的释放ctx，
 		// 反而有点像是在用信号量去计数
-		// 其中当ATOM_FDEC(&ctx->ref) == 1成立时才会彻底释放ctx
+		// 其中当ATOM_FDEC(&ctx->ref) == 1成立时才会彻底释放ctx(也就是引用计数为0时释放)
 		// 否则会返回ctx
 		// 而后续的判断也证明了这一点，只有ret不为NULL时才算启动成功
-		struct fengnet_context * ret = fengnet_context_release(ctx);
+		fengnet_context * ret = fengnet_context_release(ctx);
 		if (ret) {
 			ctx->init = true;
 		}
@@ -173,9 +173,9 @@ void FengnetServer::fengnet_context_reserve(fengnet_context* ctx){
 
 // 类似一种变相的判断之前的操作是否执行正确，只有执行正确了才会改变&ctx->ref
 // 有点类似shared_ptr，&ctx->ref就是ctx的引用计数
-// 只有当ctx-ref减为1时才释放内存
+// 只有当ctx-ref减为0时才释放内存
 fengnet_context* FengnetServer::fengnet_context_release(fengnet_context* ctx){
-    if((--ctx->ref)==1){
+    if(ctx->ref.fetch_sub(1)==1){
         delete_context(ctx);
         return nullptr;
     }

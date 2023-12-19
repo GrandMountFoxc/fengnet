@@ -303,6 +303,7 @@ void fengnet_start(fengnet_config* config){
 	new FengnetHandle();
 	new FengnetHarbor();
 	FengnetHarbor::harborInst->fengnet_harbor_init(config->harbor);
+	FengnetHandle::handleInst->fengnet_handle_init(config->harbor);
 	FengnetMQ::mqInst->fengnet_mq_init();
 	FengnetModule::moduleInst->fengnet_module_init(config->module_path);
 	FengnetTimer::timerInst->fengnet_timer_init();

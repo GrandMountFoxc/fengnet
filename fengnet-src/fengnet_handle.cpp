@@ -3,6 +3,7 @@
 FengnetHandle* FengnetHandle::handleInst;
 FengnetHandle::FengnetHandle(){
 	handleInst = this;
+	handleInst->H = nullptr;
 }
 
 uint32_t FengnetHandle::fengnet_handle_register(fengnet_context* ctx) {
@@ -21,7 +22,7 @@ uint32_t FengnetHandle::fengnet_handle_register(fengnet_context* ctx) {
 				handle = 1;
 			}
 			int hash = handle & (s->slot_size-1);
-			if (s->slot[hash] == NULL) {
+			if (s->slot[hash] == nullptr) {
 				s->slot[hash] = ctx;
 				s->handle_index = handle + 1;
 
@@ -40,9 +41,12 @@ uint32_t FengnetHandle::fengnet_handle_register(fengnet_context* ctx) {
 		for (i=0;i<s->slot_size;i++) {
 			if (s->slot[i]) {
 				int hash = FengnetServer::serverInst->fengnet_context_handle(s->slot[i]) & (s->slot_size * 2 - 1);
-				assert(new_slot[hash] == NULL);
+				assert(new_slot[hash] == nullptr);
 				new_slot[hash] = s->slot[i];
 			}
+		}
+		for(i=0;i<s->slot_size;++i){
+			delete s->slot[i];
 		}
 		delete[] s->slot;
 		s->slot = new_slot;
@@ -83,8 +87,8 @@ int FengnetHandle::fengnet_handle_retire(uint32_t handle){
 	uint32_t hash = handle & (s->slot_size-1);
 	fengnet_context * ctx = s->slot[hash];
 
-	if (ctx != NULL && FengnetServer::serverInst->fengnet_context_handle(ctx) == handle) {
-		s->slot[hash] = NULL;
+	if (ctx != nullptr && FengnetServer::serverInst->fengnet_context_handle(ctx) == handle) {
+		s->slot[hash] = nullptr;
 		ret = 1;
 		int i;
 		int j=0, n=s->name_count;
@@ -100,7 +104,7 @@ int FengnetHandle::fengnet_handle_retire(uint32_t handle){
 		}
 		s->name_count = j;
 	} else {
-		ctx = NULL;
+		ctx = nullptr;
 	}
 
 	lock.unlock();
@@ -193,7 +197,7 @@ const char* FengnetHandle::_insert_name(handle_storage* s, const char* name, uin
 		handle_name* n = &s->name[mid];
 		int c = strcmp(n->name, name);
 		if (c==0) {
-			return NULL;
+			return nullptr;
 		}
 		if (c<0) {
 			begin = mid + 1;
@@ -217,7 +221,7 @@ const char* FengnetHandle::fengnet_handle_namehandle(uint32_t handle, const char
 }
 
 void FengnetHandle::fengnet_handle_init(int harbor) {
-	assert(H==NULL);
+	assert(H==nullptr);
 	// handle_storage * s = fengnet_malloc(sizeof(*H));
 	handle_storage* s = new handle_storage();
 	s->slot_size = DEFAULT_SLOT_SIZE;
