@@ -1,0 +1,46 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ubuntu/fengnet/3rd/lua-md5/compat-5.2.c
+lua.h
+/home/ubuntu/fengnet/3rd/lua-md5/lua.h
+lauxlib.h
+/home/ubuntu/fengnet/3rd/lua-md5/lauxlib.h
+compat-5.2.h
+/home/ubuntu/fengnet/3rd/lua-md5/compat-5.2.h
+
+/home/ubuntu/fengnet/3rd/lua-md5/compat-5.2.h
+
+/home/ubuntu/fengnet/3rd/lua-md5/md5.c
+string.h
+-
+md5.h
+/home/ubuntu/fengnet/3rd/lua-md5/md5.h
+stdint.h
+-
+
+/home/ubuntu/fengnet/3rd/lua-md5/md5.h
+lua.h
+-
+
+/home/ubuntu/fengnet/3rd/lua-md5/md5lib.c
+stdlib.h
+-
+string.h
+-
+time.h
+-
+lua.h
+-
+lauxlib.h
+-
+md5.h
+/home/ubuntu/fengnet/3rd/lua-md5/md5.h
+compat-5.2.h
+/home/ubuntu/fengnet/3rd/lua-md5/compat-5.2.h
+

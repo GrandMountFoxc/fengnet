@@ -157,6 +157,84 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named bson
+
+# Build rule for target.
+bson: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 bson
+.PHONY : bson
+
+# fast build rule for target.
+bson/fast:
+	$(MAKE) -f lualib-src/CMakeFiles/bson.dir/build.make lualib-src/CMakeFiles/bson.dir/build
+.PHONY : bson/fast
+
+#=============================================================================
+# Target rules for targets named fengnet
+
+# Build rule for target.
+fengnet: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 fengnet
+.PHONY : fengnet
+
+# fast build rule for target.
+fengnet/fast:
+	$(MAKE) -f lualib-src/CMakeFiles/fengnet.dir/build.make lualib-src/CMakeFiles/fengnet.dir/build
+.PHONY : fengnet/fast
+
+#=============================================================================
+# Target rules for targets named md5
+
+# Build rule for target.
+md5: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 md5
+.PHONY : md5
+
+# fast build rule for target.
+md5/fast:
+	$(MAKE) -f lualib-src/CMakeFiles/md5.dir/build.make lualib-src/CMakeFiles/md5.dir/build
+.PHONY : md5/fast
+
+#=============================================================================
+# Target rules for targets named sproto
+
+# Build rule for target.
+sproto: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 sproto
+.PHONY : sproto
+
+# fast build rule for target.
+sproto/fast:
+	$(MAKE) -f lualib-src/CMakeFiles/sproto.dir/build.make lualib-src/CMakeFiles/sproto.dir/build
+.PHONY : sproto/fast
+
+#=============================================================================
+# Target rules for targets named client
+
+# Build rule for target.
+client: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 client
+.PHONY : client
+
+# fast build rule for target.
+client/fast:
+	$(MAKE) -f lualib-src/CMakeFiles/client.dir/build.make lualib-src/CMakeFiles/client.dir/build
+.PHONY : client/fast
+
+#=============================================================================
+# Target rules for targets named lpeg
+
+# Build rule for target.
+lpeg: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 lpeg
+.PHONY : lpeg
+
+# fast build rule for target.
+lpeg/fast:
+	$(MAKE) -f lualib-src/CMakeFiles/lpeg.dir/build.make lualib-src/CMakeFiles/lpeg.dir/build
+.PHONY : lpeg/fast
+
+#=============================================================================
 # Target rules for targets named snlua
 
 # Build rule for target.
@@ -183,17 +261,17 @@ logger/fast:
 .PHONY : logger/fast
 
 #=============================================================================
-# Target rules for targets named fengnet
+# Target rules for targets named Fengnet
 
 # Build rule for target.
-fengnet: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 fengnet
-.PHONY : fengnet
+Fengnet: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 Fengnet
+.PHONY : Fengnet
 
 # fast build rule for target.
-fengnet/fast:
-	$(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/build
-.PHONY : fengnet/fast
+Fengnet/fast:
+	$(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/build
+.PHONY : Fengnet/fast
 
 # Help Target
 help:
@@ -207,9 +285,15 @@ help:
 	@echo "... list_install_components"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... bson"
+	@echo "... fengnet"
+	@echo "... md5"
+	@echo "... sproto"
+	@echo "... client"
+	@echo "... lpeg"
 	@echo "... snlua"
 	@echo "... logger"
-	@echo "... fengnet"
+	@echo "... Fengnet"
 .PHONY : help
 
 

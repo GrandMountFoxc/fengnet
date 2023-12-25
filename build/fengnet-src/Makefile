@@ -79,17 +79,6 @@ edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
 
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
-
 # Special rule for the target list_install_components
 list_install_components:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
@@ -111,6 +100,17 @@ install/local/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
 	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local/fast
+
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
 
 # Special rule for the target install
 install: preinstall
@@ -157,19 +157,19 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-fengnet-src/CMakeFiles/fengnet.dir/rule:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f CMakeFiles/Makefile2 fengnet-src/CMakeFiles/fengnet.dir/rule
-.PHONY : fengnet-src/CMakeFiles/fengnet.dir/rule
+fengnet-src/CMakeFiles/Fengnet.dir/rule:
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f CMakeFiles/Makefile2 fengnet-src/CMakeFiles/Fengnet.dir/rule
+.PHONY : fengnet-src/CMakeFiles/Fengnet.dir/rule
 
 # Convenience name for target.
-fengnet: fengnet-src/CMakeFiles/fengnet.dir/rule
+Fengnet: fengnet-src/CMakeFiles/Fengnet.dir/rule
 
-.PHONY : fengnet
+.PHONY : Fengnet
 
 # fast build rule for target.
-fengnet/fast:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/build
-.PHONY : fengnet/fast
+Fengnet/fast:
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/build
+.PHONY : Fengnet/fast
 
 fengnet.o: fengnet.cpp.o
 
@@ -177,7 +177,7 @@ fengnet.o: fengnet.cpp.o
 
 # target to build an object file
 fengnet.cpp.o:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/fengnet.cpp.o
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/fengnet.cpp.o
 .PHONY : fengnet.cpp.o
 
 fengnet.i: fengnet.cpp.i
@@ -186,7 +186,7 @@ fengnet.i: fengnet.cpp.i
 
 # target to preprocess a source file
 fengnet.cpp.i:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/fengnet.cpp.i
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/fengnet.cpp.i
 .PHONY : fengnet.cpp.i
 
 fengnet.s: fengnet.cpp.s
@@ -195,7 +195,7 @@ fengnet.s: fengnet.cpp.s
 
 # target to generate assembly for a file
 fengnet.cpp.s:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/fengnet.cpp.s
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/fengnet.cpp.s
 .PHONY : fengnet.cpp.s
 
 fengnet_daemon.o: fengnet_daemon.cpp.o
@@ -204,7 +204,7 @@ fengnet_daemon.o: fengnet_daemon.cpp.o
 
 # target to build an object file
 fengnet_daemon.cpp.o:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/fengnet_daemon.cpp.o
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/fengnet_daemon.cpp.o
 .PHONY : fengnet_daemon.cpp.o
 
 fengnet_daemon.i: fengnet_daemon.cpp.i
@@ -213,7 +213,7 @@ fengnet_daemon.i: fengnet_daemon.cpp.i
 
 # target to preprocess a source file
 fengnet_daemon.cpp.i:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/fengnet_daemon.cpp.i
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/fengnet_daemon.cpp.i
 .PHONY : fengnet_daemon.cpp.i
 
 fengnet_daemon.s: fengnet_daemon.cpp.s
@@ -222,7 +222,7 @@ fengnet_daemon.s: fengnet_daemon.cpp.s
 
 # target to generate assembly for a file
 fengnet_daemon.cpp.s:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/fengnet_daemon.cpp.s
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/fengnet_daemon.cpp.s
 .PHONY : fengnet_daemon.cpp.s
 
 fengnet_env.o: fengnet_env.cpp.o
@@ -231,7 +231,7 @@ fengnet_env.o: fengnet_env.cpp.o
 
 # target to build an object file
 fengnet_env.cpp.o:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/fengnet_env.cpp.o
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/fengnet_env.cpp.o
 .PHONY : fengnet_env.cpp.o
 
 fengnet_env.i: fengnet_env.cpp.i
@@ -240,7 +240,7 @@ fengnet_env.i: fengnet_env.cpp.i
 
 # target to preprocess a source file
 fengnet_env.cpp.i:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/fengnet_env.cpp.i
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/fengnet_env.cpp.i
 .PHONY : fengnet_env.cpp.i
 
 fengnet_env.s: fengnet_env.cpp.s
@@ -249,7 +249,7 @@ fengnet_env.s: fengnet_env.cpp.s
 
 # target to generate assembly for a file
 fengnet_env.cpp.s:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/fengnet_env.cpp.s
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/fengnet_env.cpp.s
 .PHONY : fengnet_env.cpp.s
 
 fengnet_error.o: fengnet_error.cpp.o
@@ -258,7 +258,7 @@ fengnet_error.o: fengnet_error.cpp.o
 
 # target to build an object file
 fengnet_error.cpp.o:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/fengnet_error.cpp.o
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/fengnet_error.cpp.o
 .PHONY : fengnet_error.cpp.o
 
 fengnet_error.i: fengnet_error.cpp.i
@@ -267,7 +267,7 @@ fengnet_error.i: fengnet_error.cpp.i
 
 # target to preprocess a source file
 fengnet_error.cpp.i:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/fengnet_error.cpp.i
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/fengnet_error.cpp.i
 .PHONY : fengnet_error.cpp.i
 
 fengnet_error.s: fengnet_error.cpp.s
@@ -276,7 +276,7 @@ fengnet_error.s: fengnet_error.cpp.s
 
 # target to generate assembly for a file
 fengnet_error.cpp.s:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/fengnet_error.cpp.s
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/fengnet_error.cpp.s
 .PHONY : fengnet_error.cpp.s
 
 fengnet_handle.o: fengnet_handle.cpp.o
@@ -285,7 +285,7 @@ fengnet_handle.o: fengnet_handle.cpp.o
 
 # target to build an object file
 fengnet_handle.cpp.o:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/fengnet_handle.cpp.o
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/fengnet_handle.cpp.o
 .PHONY : fengnet_handle.cpp.o
 
 fengnet_handle.i: fengnet_handle.cpp.i
@@ -294,7 +294,7 @@ fengnet_handle.i: fengnet_handle.cpp.i
 
 # target to preprocess a source file
 fengnet_handle.cpp.i:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/fengnet_handle.cpp.i
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/fengnet_handle.cpp.i
 .PHONY : fengnet_handle.cpp.i
 
 fengnet_handle.s: fengnet_handle.cpp.s
@@ -303,7 +303,7 @@ fengnet_handle.s: fengnet_handle.cpp.s
 
 # target to generate assembly for a file
 fengnet_handle.cpp.s:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/fengnet_handle.cpp.s
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/fengnet_handle.cpp.s
 .PHONY : fengnet_handle.cpp.s
 
 fengnet_harbor.o: fengnet_harbor.cpp.o
@@ -312,7 +312,7 @@ fengnet_harbor.o: fengnet_harbor.cpp.o
 
 # target to build an object file
 fengnet_harbor.cpp.o:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/fengnet_harbor.cpp.o
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/fengnet_harbor.cpp.o
 .PHONY : fengnet_harbor.cpp.o
 
 fengnet_harbor.i: fengnet_harbor.cpp.i
@@ -321,7 +321,7 @@ fengnet_harbor.i: fengnet_harbor.cpp.i
 
 # target to preprocess a source file
 fengnet_harbor.cpp.i:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/fengnet_harbor.cpp.i
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/fengnet_harbor.cpp.i
 .PHONY : fengnet_harbor.cpp.i
 
 fengnet_harbor.s: fengnet_harbor.cpp.s
@@ -330,7 +330,7 @@ fengnet_harbor.s: fengnet_harbor.cpp.s
 
 # target to generate assembly for a file
 fengnet_harbor.cpp.s:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/fengnet_harbor.cpp.s
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/fengnet_harbor.cpp.s
 .PHONY : fengnet_harbor.cpp.s
 
 fengnet_log.o: fengnet_log.cpp.o
@@ -339,7 +339,7 @@ fengnet_log.o: fengnet_log.cpp.o
 
 # target to build an object file
 fengnet_log.cpp.o:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/fengnet_log.cpp.o
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/fengnet_log.cpp.o
 .PHONY : fengnet_log.cpp.o
 
 fengnet_log.i: fengnet_log.cpp.i
@@ -348,7 +348,7 @@ fengnet_log.i: fengnet_log.cpp.i
 
 # target to preprocess a source file
 fengnet_log.cpp.i:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/fengnet_log.cpp.i
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/fengnet_log.cpp.i
 .PHONY : fengnet_log.cpp.i
 
 fengnet_log.s: fengnet_log.cpp.s
@@ -357,7 +357,7 @@ fengnet_log.s: fengnet_log.cpp.s
 
 # target to generate assembly for a file
 fengnet_log.cpp.s:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/fengnet_log.cpp.s
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/fengnet_log.cpp.s
 .PHONY : fengnet_log.cpp.s
 
 fengnet_main.o: fengnet_main.cpp.o
@@ -366,7 +366,7 @@ fengnet_main.o: fengnet_main.cpp.o
 
 # target to build an object file
 fengnet_main.cpp.o:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/fengnet_main.cpp.o
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/fengnet_main.cpp.o
 .PHONY : fengnet_main.cpp.o
 
 fengnet_main.i: fengnet_main.cpp.i
@@ -375,7 +375,7 @@ fengnet_main.i: fengnet_main.cpp.i
 
 # target to preprocess a source file
 fengnet_main.cpp.i:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/fengnet_main.cpp.i
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/fengnet_main.cpp.i
 .PHONY : fengnet_main.cpp.i
 
 fengnet_main.s: fengnet_main.cpp.s
@@ -384,7 +384,7 @@ fengnet_main.s: fengnet_main.cpp.s
 
 # target to generate assembly for a file
 fengnet_main.cpp.s:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/fengnet_main.cpp.s
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/fengnet_main.cpp.s
 .PHONY : fengnet_main.cpp.s
 
 fengnet_module.o: fengnet_module.cpp.o
@@ -393,7 +393,7 @@ fengnet_module.o: fengnet_module.cpp.o
 
 # target to build an object file
 fengnet_module.cpp.o:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/fengnet_module.cpp.o
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/fengnet_module.cpp.o
 .PHONY : fengnet_module.cpp.o
 
 fengnet_module.i: fengnet_module.cpp.i
@@ -402,7 +402,7 @@ fengnet_module.i: fengnet_module.cpp.i
 
 # target to preprocess a source file
 fengnet_module.cpp.i:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/fengnet_module.cpp.i
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/fengnet_module.cpp.i
 .PHONY : fengnet_module.cpp.i
 
 fengnet_module.s: fengnet_module.cpp.s
@@ -411,7 +411,7 @@ fengnet_module.s: fengnet_module.cpp.s
 
 # target to generate assembly for a file
 fengnet_module.cpp.s:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/fengnet_module.cpp.s
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/fengnet_module.cpp.s
 .PHONY : fengnet_module.cpp.s
 
 fengnet_monitor.o: fengnet_monitor.cpp.o
@@ -420,7 +420,7 @@ fengnet_monitor.o: fengnet_monitor.cpp.o
 
 # target to build an object file
 fengnet_monitor.cpp.o:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/fengnet_monitor.cpp.o
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/fengnet_monitor.cpp.o
 .PHONY : fengnet_monitor.cpp.o
 
 fengnet_monitor.i: fengnet_monitor.cpp.i
@@ -429,7 +429,7 @@ fengnet_monitor.i: fengnet_monitor.cpp.i
 
 # target to preprocess a source file
 fengnet_monitor.cpp.i:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/fengnet_monitor.cpp.i
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/fengnet_monitor.cpp.i
 .PHONY : fengnet_monitor.cpp.i
 
 fengnet_monitor.s: fengnet_monitor.cpp.s
@@ -438,7 +438,7 @@ fengnet_monitor.s: fengnet_monitor.cpp.s
 
 # target to generate assembly for a file
 fengnet_monitor.cpp.s:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/fengnet_monitor.cpp.s
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/fengnet_monitor.cpp.s
 .PHONY : fengnet_monitor.cpp.s
 
 fengnet_mq.o: fengnet_mq.cpp.o
@@ -447,7 +447,7 @@ fengnet_mq.o: fengnet_mq.cpp.o
 
 # target to build an object file
 fengnet_mq.cpp.o:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/fengnet_mq.cpp.o
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/fengnet_mq.cpp.o
 .PHONY : fengnet_mq.cpp.o
 
 fengnet_mq.i: fengnet_mq.cpp.i
@@ -456,7 +456,7 @@ fengnet_mq.i: fengnet_mq.cpp.i
 
 # target to preprocess a source file
 fengnet_mq.cpp.i:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/fengnet_mq.cpp.i
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/fengnet_mq.cpp.i
 .PHONY : fengnet_mq.cpp.i
 
 fengnet_mq.s: fengnet_mq.cpp.s
@@ -465,7 +465,7 @@ fengnet_mq.s: fengnet_mq.cpp.s
 
 # target to generate assembly for a file
 fengnet_mq.cpp.s:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/fengnet_mq.cpp.s
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/fengnet_mq.cpp.s
 .PHONY : fengnet_mq.cpp.s
 
 fengnet_server.o: fengnet_server.cpp.o
@@ -474,7 +474,7 @@ fengnet_server.o: fengnet_server.cpp.o
 
 # target to build an object file
 fengnet_server.cpp.o:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/fengnet_server.cpp.o
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/fengnet_server.cpp.o
 .PHONY : fengnet_server.cpp.o
 
 fengnet_server.i: fengnet_server.cpp.i
@@ -483,7 +483,7 @@ fengnet_server.i: fengnet_server.cpp.i
 
 # target to preprocess a source file
 fengnet_server.cpp.i:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/fengnet_server.cpp.i
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/fengnet_server.cpp.i
 .PHONY : fengnet_server.cpp.i
 
 fengnet_server.s: fengnet_server.cpp.s
@@ -492,7 +492,7 @@ fengnet_server.s: fengnet_server.cpp.s
 
 # target to generate assembly for a file
 fengnet_server.cpp.s:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/fengnet_server.cpp.s
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/fengnet_server.cpp.s
 .PHONY : fengnet_server.cpp.s
 
 fengnet_socket.o: fengnet_socket.cpp.o
@@ -501,7 +501,7 @@ fengnet_socket.o: fengnet_socket.cpp.o
 
 # target to build an object file
 fengnet_socket.cpp.o:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/fengnet_socket.cpp.o
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/fengnet_socket.cpp.o
 .PHONY : fengnet_socket.cpp.o
 
 fengnet_socket.i: fengnet_socket.cpp.i
@@ -510,7 +510,7 @@ fengnet_socket.i: fengnet_socket.cpp.i
 
 # target to preprocess a source file
 fengnet_socket.cpp.i:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/fengnet_socket.cpp.i
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/fengnet_socket.cpp.i
 .PHONY : fengnet_socket.cpp.i
 
 fengnet_socket.s: fengnet_socket.cpp.s
@@ -519,7 +519,7 @@ fengnet_socket.s: fengnet_socket.cpp.s
 
 # target to generate assembly for a file
 fengnet_socket.cpp.s:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/fengnet_socket.cpp.s
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/fengnet_socket.cpp.s
 .PHONY : fengnet_socket.cpp.s
 
 fengnet_start.o: fengnet_start.cpp.o
@@ -528,7 +528,7 @@ fengnet_start.o: fengnet_start.cpp.o
 
 # target to build an object file
 fengnet_start.cpp.o:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/fengnet_start.cpp.o
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/fengnet_start.cpp.o
 .PHONY : fengnet_start.cpp.o
 
 fengnet_start.i: fengnet_start.cpp.i
@@ -537,7 +537,7 @@ fengnet_start.i: fengnet_start.cpp.i
 
 # target to preprocess a source file
 fengnet_start.cpp.i:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/fengnet_start.cpp.i
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/fengnet_start.cpp.i
 .PHONY : fengnet_start.cpp.i
 
 fengnet_start.s: fengnet_start.cpp.s
@@ -546,7 +546,7 @@ fengnet_start.s: fengnet_start.cpp.s
 
 # target to generate assembly for a file
 fengnet_start.cpp.s:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/fengnet_start.cpp.s
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/fengnet_start.cpp.s
 .PHONY : fengnet_start.cpp.s
 
 fengnet_timer.o: fengnet_timer.cpp.o
@@ -555,7 +555,7 @@ fengnet_timer.o: fengnet_timer.cpp.o
 
 # target to build an object file
 fengnet_timer.cpp.o:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/fengnet_timer.cpp.o
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/fengnet_timer.cpp.o
 .PHONY : fengnet_timer.cpp.o
 
 fengnet_timer.i: fengnet_timer.cpp.i
@@ -564,7 +564,7 @@ fengnet_timer.i: fengnet_timer.cpp.i
 
 # target to preprocess a source file
 fengnet_timer.cpp.i:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/fengnet_timer.cpp.i
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/fengnet_timer.cpp.i
 .PHONY : fengnet_timer.cpp.i
 
 fengnet_timer.s: fengnet_timer.cpp.s
@@ -573,7 +573,7 @@ fengnet_timer.s: fengnet_timer.cpp.s
 
 # target to generate assembly for a file
 fengnet_timer.cpp.s:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/fengnet_timer.cpp.s
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/fengnet_timer.cpp.s
 .PHONY : fengnet_timer.cpp.s
 
 malloc_hook.o: malloc_hook.cpp.o
@@ -582,7 +582,7 @@ malloc_hook.o: malloc_hook.cpp.o
 
 # target to build an object file
 malloc_hook.cpp.o:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/malloc_hook.cpp.o
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/malloc_hook.cpp.o
 .PHONY : malloc_hook.cpp.o
 
 malloc_hook.i: malloc_hook.cpp.i
@@ -591,7 +591,7 @@ malloc_hook.i: malloc_hook.cpp.i
 
 # target to preprocess a source file
 malloc_hook.cpp.i:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/malloc_hook.cpp.i
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/malloc_hook.cpp.i
 .PHONY : malloc_hook.cpp.i
 
 malloc_hook.s: malloc_hook.cpp.s
@@ -600,7 +600,7 @@ malloc_hook.s: malloc_hook.cpp.s
 
 # target to generate assembly for a file
 malloc_hook.cpp.s:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/malloc_hook.cpp.s
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/malloc_hook.cpp.s
 .PHONY : malloc_hook.cpp.s
 
 socket_server.o: socket_server.cpp.o
@@ -609,7 +609,7 @@ socket_server.o: socket_server.cpp.o
 
 # target to build an object file
 socket_server.cpp.o:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/socket_server.cpp.o
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/socket_server.cpp.o
 .PHONY : socket_server.cpp.o
 
 socket_server.i: socket_server.cpp.i
@@ -618,7 +618,7 @@ socket_server.i: socket_server.cpp.i
 
 # target to preprocess a source file
 socket_server.cpp.i:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/socket_server.cpp.i
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/socket_server.cpp.i
 .PHONY : socket_server.cpp.i
 
 socket_server.s: socket_server.cpp.s
@@ -627,7 +627,7 @@ socket_server.s: socket_server.cpp.s
 
 # target to generate assembly for a file
 socket_server.cpp.s:
-	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/socket_server.cpp.s
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/socket_server.cpp.s
 .PHONY : socket_server.cpp.s
 
 # Help Target
@@ -638,10 +638,10 @@ help:
 	@echo "... depend"
 	@echo "... install/strip"
 	@echo "... edit_cache"
-	@echo "... fengnet"
-	@echo "... rebuild_cache"
 	@echo "... list_install_components"
+	@echo "... Fengnet"
 	@echo "... install/local"
+	@echo "... rebuild_cache"
 	@echo "... install"
 	@echo "... fengnet.o"
 	@echo "... fengnet.i"

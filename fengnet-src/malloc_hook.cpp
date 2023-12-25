@@ -39,6 +39,30 @@ static struct mem_data mem_stats[SLOT_SIZE];
 #define raw_realloc realloc
 #define raw_free free
 
+void memory_info_dump(const char* opts) {
+	Fengnet::inst->fengnet_error(nullptr, "No jemalloc");
+}
+
+size_t mallctl_int64(const char* name, size_t* newval) {
+	Fengnet::inst->fengnet_error(nullptr, "No jemalloc : mallctl_int64 %s.", name);
+	return 0;
+}
+
+int mallctl_opt(const char* name, int* newval) {
+	Fengnet::inst->fengnet_error(nullptr, "No jemalloc : mallctl_opt %s.", name);
+	return 0;
+}
+
+bool mallctl_bool(const char* name, bool* newval) {
+	Fengnet::inst->fengnet_error(nullptr, "No jemalloc : mallctl_bool %s.", name);
+	return 0;
+}
+
+int mallctl_cmd(const char* name) {
+	Fengnet::inst->fengnet_error(nullptr, "No jemalloc : mallctl_cmd %s.", name);
+	return 0;
+}
+
 // 深拷贝？
 char* fengnet_strdup(const char *str) {
 	size_t sz = strlen(str);
@@ -60,6 +84,64 @@ void* fengnet_lalloc(void *ptr, size_t osize, size_t nsize) {
 		return raw_realloc(ptr, nsize);
 	}
 }
+
+size_t malloc_used_memory(void) {
+	return atomic_load(&_used_memory);
+}
+
+size_t malloc_memory_block(void) {
+	return atomic_load(&_memory_block);
+}
+
+void dump_c_mem() {
+	int i;
+	size_t total = 0;
+	Fengnet::inst->fengnet_error(nullptr, "dump all service mem:");
+	for(i=0; i<SLOT_SIZE; i++) {
+		struct mem_data* data = &mem_stats[i];
+		if(data->handle != 0 && data->allocated != 0) {
+			total += data->allocated;
+			int handle = data->handle;
+			int allocated = data->allocated >> 10;
+			int temp = data->allocated % 1024;
+			Fengnet::inst->fengnet_error(nullptr, ":%08x -> %zdkb %db", handle, allocated, temp);
+		}
+	}
+	Fengnet::inst->fengnet_error(nullptr, "+total: %zdkb",total >> 10);
+}
+
+int dump_mem_lua(lua_State *L) {
+	int i;
+	lua_newtable(L);
+	for(i=0; i<SLOT_SIZE; i++) {
+		struct mem_data* data = &mem_stats[i];
+		if(data->handle != 0 && data->allocated != 0) {
+			lua_pushinteger(L, data->allocated);
+			lua_rawseti(L, -2, (lua_Integer)data->handle);
+		}
+	}
+	return 1;
+}
+
+size_t malloc_current_memory(void) {
+	uint32_t handle = Fengnet::inst->fengnet_current_handle();
+	int i;
+	for(i=0; i<SLOT_SIZE; i++) {
+		struct mem_data* data = &mem_stats[i];
+		if(data->handle == (uint32_t)handle && data->allocated != 0) {
+			return (size_t) data->allocated;
+		}
+	}
+	return 0;
+}
+
+void fengnet_debug_memory(const char *info) {
+	// for debug use
+	uint32_t handle = Fengnet::inst->fengnet_current_handle();
+	size_t mem = malloc_current_memory();
+	fprintf(stderr, "[:%08x] %s %p\n", handle, info, (void *)mem);
+}
+
 
 // static atomic<size_t> *
 // get_allocated_field(uint32_t handle) {

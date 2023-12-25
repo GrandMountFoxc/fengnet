@@ -60,6 +60,256 @@ CMAKE_SOURCE_DIR = /home/ubuntu/fengnet
 CMAKE_BINARY_DIR = /home/ubuntu/fengnet/build
 
 #=============================================================================
+# Directory level rules for directory lualib-src
+
+# Convenience name for "all" pass in the directory.
+lualib-src/all: lualib-src/CMakeFiles/bson.dir/all
+lualib-src/all: lualib-src/CMakeFiles/fengnet.dir/all
+lualib-src/all: lualib-src/CMakeFiles/md5.dir/all
+lualib-src/all: lualib-src/CMakeFiles/sproto.dir/all
+lualib-src/all: lualib-src/CMakeFiles/client.dir/all
+lualib-src/all: lualib-src/CMakeFiles/lpeg.dir/all
+
+.PHONY : lualib-src/all
+
+# Convenience name for "clean" pass in the directory.
+lualib-src/clean: lualib-src/CMakeFiles/bson.dir/clean
+lualib-src/clean: lualib-src/CMakeFiles/fengnet.dir/clean
+lualib-src/clean: lualib-src/CMakeFiles/md5.dir/clean
+lualib-src/clean: lualib-src/CMakeFiles/sproto.dir/clean
+lualib-src/clean: lualib-src/CMakeFiles/client.dir/clean
+lualib-src/clean: lualib-src/CMakeFiles/lpeg.dir/clean
+
+.PHONY : lualib-src/clean
+
+# Convenience name for "preinstall" pass in the directory.
+lualib-src/preinstall:
+
+.PHONY : lualib-src/preinstall
+
+#=============================================================================
+# Target rules for target lualib-src/CMakeFiles/bson.dir
+
+# All Build rule for target.
+lualib-src/CMakeFiles/bson.dir/all:
+	$(MAKE) -f lualib-src/CMakeFiles/bson.dir/build.make lualib-src/CMakeFiles/bson.dir/depend
+	$(MAKE) -f lualib-src/CMakeFiles/bson.dir/build.make lualib-src/CMakeFiles/bson.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ubuntu/fengnet/build/CMakeFiles --progress-num=19,20 "Built target bson"
+.PHONY : lualib-src/CMakeFiles/bson.dir/all
+
+# Include target in all.
+all: lualib-src/CMakeFiles/bson.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+lualib-src/CMakeFiles/bson.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/fengnet/build/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 lualib-src/CMakeFiles/bson.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/fengnet/build/CMakeFiles 0
+.PHONY : lualib-src/CMakeFiles/bson.dir/rule
+
+# Convenience name for target.
+bson: lualib-src/CMakeFiles/bson.dir/rule
+
+.PHONY : bson
+
+# clean rule for target.
+lualib-src/CMakeFiles/bson.dir/clean:
+	$(MAKE) -f lualib-src/CMakeFiles/bson.dir/build.make lualib-src/CMakeFiles/bson.dir/clean
+.PHONY : lualib-src/CMakeFiles/bson.dir/clean
+
+# clean rule for target.
+clean: lualib-src/CMakeFiles/bson.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target lualib-src/CMakeFiles/fengnet.dir
+
+# All Build rule for target.
+lualib-src/CMakeFiles/fengnet.dir/all:
+	$(MAKE) -f lualib-src/CMakeFiles/fengnet.dir/build.make lualib-src/CMakeFiles/fengnet.dir/depend
+	$(MAKE) -f lualib-src/CMakeFiles/fengnet.dir/build.make lualib-src/CMakeFiles/fengnet.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ubuntu/fengnet/build/CMakeFiles --progress-num=25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56 "Built target fengnet"
+.PHONY : lualib-src/CMakeFiles/fengnet.dir/all
+
+# Include target in all.
+all: lualib-src/CMakeFiles/fengnet.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+lualib-src/CMakeFiles/fengnet.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/fengnet/build/CMakeFiles 32
+	$(MAKE) -f CMakeFiles/Makefile2 lualib-src/CMakeFiles/fengnet.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/fengnet/build/CMakeFiles 0
+.PHONY : lualib-src/CMakeFiles/fengnet.dir/rule
+
+# Convenience name for target.
+fengnet: lualib-src/CMakeFiles/fengnet.dir/rule
+
+.PHONY : fengnet
+
+# clean rule for target.
+lualib-src/CMakeFiles/fengnet.dir/clean:
+	$(MAKE) -f lualib-src/CMakeFiles/fengnet.dir/build.make lualib-src/CMakeFiles/fengnet.dir/clean
+.PHONY : lualib-src/CMakeFiles/fengnet.dir/clean
+
+# clean rule for target.
+clean: lualib-src/CMakeFiles/fengnet.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target lualib-src/CMakeFiles/md5.dir
+
+# All Build rule for target.
+lualib-src/CMakeFiles/md5.dir/all:
+	$(MAKE) -f lualib-src/CMakeFiles/md5.dir/build.make lualib-src/CMakeFiles/md5.dir/depend
+	$(MAKE) -f lualib-src/CMakeFiles/md5.dir/build.make lualib-src/CMakeFiles/md5.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ubuntu/fengnet/build/CMakeFiles --progress-num=66,67,68,69 "Built target md5"
+.PHONY : lualib-src/CMakeFiles/md5.dir/all
+
+# Include target in all.
+all: lualib-src/CMakeFiles/md5.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+lualib-src/CMakeFiles/md5.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/fengnet/build/CMakeFiles 4
+	$(MAKE) -f CMakeFiles/Makefile2 lualib-src/CMakeFiles/md5.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/fengnet/build/CMakeFiles 0
+.PHONY : lualib-src/CMakeFiles/md5.dir/rule
+
+# Convenience name for target.
+md5: lualib-src/CMakeFiles/md5.dir/rule
+
+.PHONY : md5
+
+# clean rule for target.
+lualib-src/CMakeFiles/md5.dir/clean:
+	$(MAKE) -f lualib-src/CMakeFiles/md5.dir/build.make lualib-src/CMakeFiles/md5.dir/clean
+.PHONY : lualib-src/CMakeFiles/md5.dir/clean
+
+# clean rule for target.
+clean: lualib-src/CMakeFiles/md5.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target lualib-src/CMakeFiles/sproto.dir
+
+# All Build rule for target.
+lualib-src/CMakeFiles/sproto.dir/all:
+	$(MAKE) -f lualib-src/CMakeFiles/sproto.dir/build.make lualib-src/CMakeFiles/sproto.dir/depend
+	$(MAKE) -f lualib-src/CMakeFiles/sproto.dir/build.make lualib-src/CMakeFiles/sproto.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ubuntu/fengnet/build/CMakeFiles --progress-num=72,73,74 "Built target sproto"
+.PHONY : lualib-src/CMakeFiles/sproto.dir/all
+
+# Include target in all.
+all: lualib-src/CMakeFiles/sproto.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+lualib-src/CMakeFiles/sproto.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/fengnet/build/CMakeFiles 3
+	$(MAKE) -f CMakeFiles/Makefile2 lualib-src/CMakeFiles/sproto.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/fengnet/build/CMakeFiles 0
+.PHONY : lualib-src/CMakeFiles/sproto.dir/rule
+
+# Convenience name for target.
+sproto: lualib-src/CMakeFiles/sproto.dir/rule
+
+.PHONY : sproto
+
+# clean rule for target.
+lualib-src/CMakeFiles/sproto.dir/clean:
+	$(MAKE) -f lualib-src/CMakeFiles/sproto.dir/build.make lualib-src/CMakeFiles/sproto.dir/clean
+.PHONY : lualib-src/CMakeFiles/sproto.dir/clean
+
+# clean rule for target.
+clean: lualib-src/CMakeFiles/sproto.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target lualib-src/CMakeFiles/client.dir
+
+# All Build rule for target.
+lualib-src/CMakeFiles/client.dir/all:
+	$(MAKE) -f lualib-src/CMakeFiles/client.dir/build.make lualib-src/CMakeFiles/client.dir/depend
+	$(MAKE) -f lualib-src/CMakeFiles/client.dir/build.make lualib-src/CMakeFiles/client.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ubuntu/fengnet/build/CMakeFiles --progress-num=21,22,23,24 "Built target client"
+.PHONY : lualib-src/CMakeFiles/client.dir/all
+
+# Include target in all.
+all: lualib-src/CMakeFiles/client.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+lualib-src/CMakeFiles/client.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/fengnet/build/CMakeFiles 4
+	$(MAKE) -f CMakeFiles/Makefile2 lualib-src/CMakeFiles/client.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/fengnet/build/CMakeFiles 0
+.PHONY : lualib-src/CMakeFiles/client.dir/rule
+
+# Convenience name for target.
+client: lualib-src/CMakeFiles/client.dir/rule
+
+.PHONY : client
+
+# clean rule for target.
+lualib-src/CMakeFiles/client.dir/clean:
+	$(MAKE) -f lualib-src/CMakeFiles/client.dir/build.make lualib-src/CMakeFiles/client.dir/clean
+.PHONY : lualib-src/CMakeFiles/client.dir/clean
+
+# clean rule for target.
+clean: lualib-src/CMakeFiles/client.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target lualib-src/CMakeFiles/lpeg.dir
+
+# All Build rule for target.
+lualib-src/CMakeFiles/lpeg.dir/all:
+	$(MAKE) -f lualib-src/CMakeFiles/lpeg.dir/build.make lualib-src/CMakeFiles/lpeg.dir/depend
+	$(MAKE) -f lualib-src/CMakeFiles/lpeg.dir/build.make lualib-src/CMakeFiles/lpeg.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ubuntu/fengnet/build/CMakeFiles --progress-num=59,60,61,62,63,64,65 "Built target lpeg"
+.PHONY : lualib-src/CMakeFiles/lpeg.dir/all
+
+# Include target in all.
+all: lualib-src/CMakeFiles/lpeg.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+lualib-src/CMakeFiles/lpeg.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/fengnet/build/CMakeFiles 7
+	$(MAKE) -f CMakeFiles/Makefile2 lualib-src/CMakeFiles/lpeg.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/fengnet/build/CMakeFiles 0
+.PHONY : lualib-src/CMakeFiles/lpeg.dir/rule
+
+# Convenience name for target.
+lpeg: lualib-src/CMakeFiles/lpeg.dir/rule
+
+.PHONY : lpeg
+
+# clean rule for target.
+lualib-src/CMakeFiles/lpeg.dir/clean:
+	$(MAKE) -f lualib-src/CMakeFiles/lpeg.dir/build.make lualib-src/CMakeFiles/lpeg.dir/clean
+.PHONY : lualib-src/CMakeFiles/lpeg.dir/clean
+
+# clean rule for target.
+clean: lualib-src/CMakeFiles/lpeg.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
 # Directory level rules for directory service-src
 
 # Convenience name for "all" pass in the directory.
@@ -86,7 +336,7 @@ service-src/preinstall:
 service-src/CMakeFiles/snlua.dir/all:
 	$(MAKE) -f service-src/CMakeFiles/snlua.dir/build.make service-src/CMakeFiles/snlua.dir/depend
 	$(MAKE) -f service-src/CMakeFiles/snlua.dir/build.make service-src/CMakeFiles/snlua.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ubuntu/fengnet/build/CMakeFiles --progress-num=21,22 "Built target snlua"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ubuntu/fengnet/build/CMakeFiles --progress-num=70,71 "Built target snlua"
 .PHONY : service-src/CMakeFiles/snlua.dir/all
 
 # Include target in all.
@@ -123,7 +373,7 @@ clean: service-src/CMakeFiles/snlua.dir/clean
 service-src/CMakeFiles/logger.dir/all:
 	$(MAKE) -f service-src/CMakeFiles/logger.dir/build.make service-src/CMakeFiles/logger.dir/depend
 	$(MAKE) -f service-src/CMakeFiles/logger.dir/build.make service-src/CMakeFiles/logger.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ubuntu/fengnet/build/CMakeFiles --progress-num=19,20 "Built target logger"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ubuntu/fengnet/build/CMakeFiles --progress-num=57,58 "Built target logger"
 .PHONY : service-src/CMakeFiles/logger.dir/all
 
 # Include target in all.
@@ -157,12 +407,12 @@ clean: service-src/CMakeFiles/logger.dir/clean
 # Directory level rules for directory fengnet-src
 
 # Convenience name for "all" pass in the directory.
-fengnet-src/all: fengnet-src/CMakeFiles/fengnet.dir/all
+fengnet-src/all: fengnet-src/CMakeFiles/Fengnet.dir/all
 
 .PHONY : fengnet-src/all
 
 # Convenience name for "clean" pass in the directory.
-fengnet-src/clean: fengnet-src/CMakeFiles/fengnet.dir/clean
+fengnet-src/clean: fengnet-src/CMakeFiles/Fengnet.dir/clean
 
 .PHONY : fengnet-src/clean
 
@@ -172,39 +422,39 @@ fengnet-src/preinstall:
 .PHONY : fengnet-src/preinstall
 
 #=============================================================================
-# Target rules for target fengnet-src/CMakeFiles/fengnet.dir
+# Target rules for target fengnet-src/CMakeFiles/Fengnet.dir
 
 # All Build rule for target.
-fengnet-src/CMakeFiles/fengnet.dir/all:
-	$(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/depend
-	$(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ubuntu/fengnet/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18 "Built target fengnet"
-.PHONY : fengnet-src/CMakeFiles/fengnet.dir/all
+fengnet-src/CMakeFiles/Fengnet.dir/all:
+	$(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/depend
+	$(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ubuntu/fengnet/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18 "Built target Fengnet"
+.PHONY : fengnet-src/CMakeFiles/Fengnet.dir/all
 
 # Include target in all.
-all: fengnet-src/CMakeFiles/fengnet.dir/all
+all: fengnet-src/CMakeFiles/Fengnet.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-fengnet-src/CMakeFiles/fengnet.dir/rule: cmake_check_build_system
+fengnet-src/CMakeFiles/Fengnet.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/fengnet/build/CMakeFiles 18
-	$(MAKE) -f CMakeFiles/Makefile2 fengnet-src/CMakeFiles/fengnet.dir/all
+	$(MAKE) -f CMakeFiles/Makefile2 fengnet-src/CMakeFiles/Fengnet.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/fengnet/build/CMakeFiles 0
-.PHONY : fengnet-src/CMakeFiles/fengnet.dir/rule
+.PHONY : fengnet-src/CMakeFiles/Fengnet.dir/rule
 
 # Convenience name for target.
-fengnet: fengnet-src/CMakeFiles/fengnet.dir/rule
+Fengnet: fengnet-src/CMakeFiles/Fengnet.dir/rule
 
-.PHONY : fengnet
-
-# clean rule for target.
-fengnet-src/CMakeFiles/fengnet.dir/clean:
-	$(MAKE) -f fengnet-src/CMakeFiles/fengnet.dir/build.make fengnet-src/CMakeFiles/fengnet.dir/clean
-.PHONY : fengnet-src/CMakeFiles/fengnet.dir/clean
+.PHONY : Fengnet
 
 # clean rule for target.
-clean: fengnet-src/CMakeFiles/fengnet.dir/clean
+fengnet-src/CMakeFiles/Fengnet.dir/clean:
+	$(MAKE) -f fengnet-src/CMakeFiles/Fengnet.dir/build.make fengnet-src/CMakeFiles/Fengnet.dir/clean
+.PHONY : fengnet-src/CMakeFiles/Fengnet.dir/clean
+
+# clean rule for target.
+clean: fengnet-src/CMakeFiles/Fengnet.dir/clean
 
 .PHONY : clean
 

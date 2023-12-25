@@ -11,6 +11,8 @@ fengnet_malloc.h
 ../fengnet-src/fengnet_malloc.h
 fengnet_harbor.h
 ../fengnet-src/fengnet_harbor.h
+fengnet_imp.h
+../fengnet-src/fengnet_imp.h
 cstddef
 -
 cstdint
@@ -44,6 +46,10 @@ cstdio
 cassert
 -
 memory
+-
+
+../fengnet-src/fengnet_imp.h
+string
 -
 
 ../fengnet-src/fengnet_malloc.h

@@ -4,5 +4,6 @@
 service-src/CMakeFiles/logger.dir/logger/service_logger.cpp.o
  ../fengnet-src/fengnet.h
  ../fengnet-src/fengnet_harbor.h
+ ../fengnet-src/fengnet_imp.h
  ../fengnet-src/fengnet_malloc.h
  /home/ubuntu/fengnet/service-src/logger/service_logger.cpp

@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC  -fPIE  -O0 -g2 -ggdb  -shared -Wl,-soname,libclient.so -o ../../luaclib/libclient.so CMakeFiles/client.dir/lua-clientsocket.cpp.o CMakeFiles/client.dir/lua-crypt.cpp.o CMakeFiles/client.dir/lsha1.cpp.o -lpthread 

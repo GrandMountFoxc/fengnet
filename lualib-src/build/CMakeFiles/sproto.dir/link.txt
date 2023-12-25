@@ -1,0 +1,1 @@
+/usr/bin/cc -fPIC   -shared -Wl,-soname,libsproto.so -o ../luaclib/libsproto.so CMakeFiles/sproto.dir/sproto/sproto.c.o CMakeFiles/sproto.dir/sproto/lsproto.c.o 

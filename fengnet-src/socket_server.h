@@ -61,6 +61,7 @@
 #include <atomic>
 #include <sys/types.h>
 #include <sys/socket.h>
+#include <netinet/tcp.h>
 #include <cstdint>
 #include <cstdlib>
 #include <cassert>
@@ -72,6 +73,7 @@
 #include "fengnet_malloc.h"
 #include "spinlock.h"
 #include "socket_buffer.h"
+#include "socket_info.h"
 
 struct write_buffer {
 	write_buffer * next;
@@ -291,8 +293,19 @@ public:
 	int socket_server_connect( socket_server *, uintptr_t opaque, const char * addr, int port);
 	int socket_server_bind( socket_server *, uintptr_t opaque, int fd);
 
+	// udp
+	int socket_server_udp(struct socket_server *ss, uintptr_t opaque, const char * addr, int port);
+	int socket_server_udp_send(struct socket_server *ss, const struct socket_udp_address *addr, struct socket_sendbuffer *buf);
+	int socket_server_udp_connect(struct socket_server *ss, int id, const char * addr, int port);
+	const struct socket_udp_address * socket_server_udp_address(struct socket_server *ss, struct socket_message *msg, int *addrsz);
+
 	// for tcp
 	void socket_server_nodelay( socket_server *, int id);
+	
+	int query_info(struct socket *s, struct socket_info *si);
+	struct socket_info * socket_server_info(struct socket_server *ss);
+	struct socket_info* socket_info_create(struct socket_info *last);
+	void socket_info_release(struct socket_info *si);
 private:
     inline void clear_wb_list(wb_list *list);
 	void send_request(socket_server *ss, request_package *request, char type, int len);
@@ -346,7 +359,6 @@ private:
 	inline void append_sendbuffer(struct socket_server *ss, struct socket *s, struct request_send * request);
 	inline void append_sendbuffer_low(struct socket_server *ss,struct socket *s, struct request_send * request);
 	socklen_t udp_socket_address(struct socket *s, const uint8_t udp_address[UDP_ADDRESS_SIZE], union sockaddr_all *sa);
-	inline void dec_sending_ref(struct socket_server *ss, int id);
 	int set_udp_address(struct socket_server *ss, struct request_setudp *request, struct socket_message *result);
 	void add_udp_socket(struct socket_server *ss, struct request_udp *udp);
 	int send_list(struct socket_server *ss, struct socket *s, struct wb_list *list, struct socket_lock *l, struct socket_message *result);
@@ -356,6 +368,14 @@ private:
 	int close_write(struct socket_server *ss, struct socket *s, struct socket_lock *l, struct socket_message *result);
 	int send_socket(struct socket_server *ss, struct request_send * request, struct socket_message *result, int priority, const uint8_t *udp_address);
 	int listen_socket(struct socket_server *ss, struct request_listen * request, struct socket_message *result);
+	int do_bind(const char *host, int port, int protocol, int *family);
+	int do_listen(const char * host, int port, int backlog);
+	static void dummy_free(void *ptr);
+	inline void dec_sending_ref(struct socket_server *ss, int id);
+	inline void inc_sending_ref(struct socket *s, int id);
+	inline int can_direct_write(struct socket *s, int id);
+	int open_request(struct socket_server *ss, struct request_package *req, uintptr_t opaque, const char *addr, int port);
+	inline void send_object_init_from_sendbuffer(struct socket_server *ss, struct send_object *so, struct socket_sendbuffer *buf);
 };
 
 #endif

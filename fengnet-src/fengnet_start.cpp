@@ -209,8 +209,8 @@ static void bootstrap(fengnet_context* logger, const char* cmdline) {
 	}
 	// 加载snlua动态库并初始化
 	struct fengnet_context *ctx = FengnetServer::serverInst->fengnet_context_new(name, args);
-	if (ctx == NULL) {
-		Fengnet::inst->fengnet_error(NULL, "Bootstrap error : %s\n", cmdline);
+	if (ctx == nullptr) {
+		Fengnet::inst->fengnet_error(nullptr, "Bootstrap error : %s\n", cmdline);
 		FengnetServer::serverInst->fengnet_context_dispatchall(logger);
 		exit(1);
 	}

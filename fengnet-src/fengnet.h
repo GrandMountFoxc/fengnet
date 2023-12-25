@@ -3,6 +3,7 @@
 
 #include "fengnet_malloc.h"
 #include "fengnet_harbor.h"
+#include "fengnet_imp.h"
 
 #include <cstddef>
 #include <cstdint>
@@ -82,9 +83,9 @@ public:
 
     int fengnet_send(fengnet_context* context, uint32_t source, uint32_t destination , int type, int session, void * msg, size_t sz);
     int fengnet_sendname(fengnet_context* context, uint32_t source, const char * destination , int type, int session, void * msg, size_t sz);
-
+    int fengnet_isremote(fengnet_context *, uint32_t handle, int * harbor);
     void fengnet_callback(fengnet_context* context, void* ud, fengnet_cb cb);
-
+    uint32_t fengnet_current_handle();
     uint64_t fengnet_now();     // fengnet_timer.cpp
 private:
     static const char* cmd_timeout(fengnet_context* context, const char* param);

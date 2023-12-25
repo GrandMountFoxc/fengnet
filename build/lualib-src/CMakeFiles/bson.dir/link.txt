@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC  -fPIE  -O0 -g2 -ggdb  -shared -Wl,-soname,libbson.so -o ../../luaclib/libbson.so CMakeFiles/bson.dir/lua-bson.cpp.o /usr/local/lib/liblua.a 

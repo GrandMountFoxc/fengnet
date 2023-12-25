@@ -12,6 +12,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/3.10.2/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.10.2/CMakeSystem.cmake"
   "../fengnet-src/CMakeLists.txt"
+  "../lualib-src/CMakeLists.txt"
   "../service-src/CMakeLists.txt"
   "/usr/share/cmake-3.10/Modules/CMakeCInformation.cmake"
   "/usr/share/cmake-3.10/Modules/CMakeCXXInformation.cmake"
@@ -46,13 +47,20 @@ set(CMAKE_MAKEFILE_OUTPUTS
 # Byproducts of CMake generate step:
 set(CMAKE_MAKEFILE_PRODUCTS
   "CMakeFiles/CMakeDirectoryInformation.cmake"
+  "lualib-src/CMakeFiles/CMakeDirectoryInformation.cmake"
   "service-src/CMakeFiles/CMakeDirectoryInformation.cmake"
   "fengnet-src/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
+  "lualib-src/CMakeFiles/bson.dir/DependInfo.cmake"
+  "lualib-src/CMakeFiles/fengnet.dir/DependInfo.cmake"
+  "lualib-src/CMakeFiles/md5.dir/DependInfo.cmake"
+  "lualib-src/CMakeFiles/sproto.dir/DependInfo.cmake"
+  "lualib-src/CMakeFiles/client.dir/DependInfo.cmake"
+  "lualib-src/CMakeFiles/lpeg.dir/DependInfo.cmake"
   "service-src/CMakeFiles/snlua.dir/DependInfo.cmake"
   "service-src/CMakeFiles/logger.dir/DependInfo.cmake"
-  "fengnet-src/CMakeFiles/fengnet.dir/DependInfo.cmake"
+  "fengnet-src/CMakeFiles/Fengnet.dir/DependInfo.cmake"
   )

@@ -1,0 +1,1 @@
+/usr/bin/cc -fPIC -g  -shared -Wl,-soname,libmd5.so -o ../../luaclib/libmd5.so CMakeFiles/md5.dir/__/3rd/lua-md5/md5.c.o CMakeFiles/md5.dir/__/3rd/lua-md5/md5lib.c.o CMakeFiles/md5.dir/__/3rd/lua-md5/compat-5.2.c.o 

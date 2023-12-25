@@ -3,6 +3,7 @@
 
 service-src/CMakeFiles/logger.dir/logger/service_logger.cpp.o: ../fengnet-src/fengnet.h
 service-src/CMakeFiles/logger.dir/logger/service_logger.cpp.o: ../fengnet-src/fengnet_harbor.h
+service-src/CMakeFiles/logger.dir/logger/service_logger.cpp.o: ../fengnet-src/fengnet_imp.h
 service-src/CMakeFiles/logger.dir/logger/service_logger.cpp.o: ../fengnet-src/fengnet_malloc.h
 service-src/CMakeFiles/logger.dir/logger/service_logger.cpp.o: ../service-src/logger/service_logger.cpp
 

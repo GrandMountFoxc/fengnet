@@ -1,0 +1,8 @@
+/home/ubuntu/fengnet/3rd/lua/build/CMakeFiles/install/strip.dir
+/home/ubuntu/fengnet/3rd/lua/build/CMakeFiles/install/local.dir
+/home/ubuntu/fengnet/3rd/lua/build/CMakeFiles/liblua_static.dir
+/home/ubuntu/fengnet/3rd/lua/build/CMakeFiles/edit_cache.dir
+/home/ubuntu/fengnet/3rd/lua/build/CMakeFiles/rebuild_cache.dir
+/home/ubuntu/fengnet/3rd/lua/build/CMakeFiles/liblua_share.dir
+/home/ubuntu/fengnet/3rd/lua/build/CMakeFiles/list_install_components.dir
+/home/ubuntu/fengnet/3rd/lua/build/CMakeFiles/install.dir

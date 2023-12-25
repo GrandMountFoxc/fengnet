@@ -1,0 +1,46 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ubuntu/fengnet/lualib-src/sproto/lsproto.c
+string.h
+-
+stdlib.h
+-
+math.h
+-
+msvcint.h
+/home/ubuntu/fengnet/lualib-src/sproto/msvcint.h
+lua.h
+/home/ubuntu/fengnet/lualib-src/sproto/lua.h
+lauxlib.h
+/home/ubuntu/fengnet/lualib-src/sproto/lauxlib.h
+sproto.h
+/home/ubuntu/fengnet/lualib-src/sproto/sproto.h
+
+/home/ubuntu/fengnet/lualib-src/sproto/msvcint.h
+stdint.h
+-
+
+/home/ubuntu/fengnet/lualib-src/sproto/sproto.c
+stdlib.h
+-
+string.h
+-
+stdio.h
+-
+assert.h
+-
+msvcint.h
+/home/ubuntu/fengnet/lualib-src/sproto/msvcint.h
+sproto.h
+/home/ubuntu/fengnet/lualib-src/sproto/sproto.h
+
+/home/ubuntu/fengnet/lualib-src/sproto/sproto.h
+stddef.h
+-
+

@@ -6,6 +6,7 @@
 #include "fengnet_module.h"
 #include "fengnet_log.h"
 
+extern thread_local int handle_key;
 Fengnet* Fengnet::inst;
 
 const command_func Fengnet::cmd_funcs[CMD_MAX_NUM] = {
@@ -65,6 +66,20 @@ uint32_t Fengnet::tohandle(fengnet_context* context, const char* param) {
 	}
 
 	return handle;
+}
+
+// 确定当前是哪个线程？
+// G_NODE.handle_key是线程私有存储
+// 这个函数从字面上看也是如果G_NODE被初始化了就返回私有存储当中的值
+// 否则返回主线程值也就是-1
+uint32_t Fengnet::fengnet_current_handle() {
+	if (G_NODE.init) {
+		uint32_t handle = handle_key;
+		return handle;
+	} else {
+		uint32_t v = (uint32_t)(-THREAD_MAIN);
+		return v;
+	}
 }
 
 void Fengnet::id_to_hex(char* str, uint32_t id) {
@@ -395,6 +410,14 @@ void Fengnet::_filter_args(fengnet_context * context, int type, int *session, vo
 	}
 
 	*sz |= (size_t)type << MESSAGE_TYPE_SHIFT;
+}
+
+int Fengnet::fengnet_isremote(struct fengnet_context * ctx, uint32_t handle, int * harbor) {
+	int ret = FengnetHarbor::harborInst->fengnet_harbor_message_isremote(handle);
+	if (harbor) {
+		*harbor = (int)(handle >> HANDLE_REMOTE_SHIFT);
+	}
+	return ret;
 }
 
 // skynet_send 使用了 source 和 destination 来标记消息的发送端和接收端，这两个参数的本质就是能够在全网范围内唯一标识一个服务的 handle

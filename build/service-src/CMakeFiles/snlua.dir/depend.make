@@ -3,6 +3,7 @@
 
 service-src/CMakeFiles/snlua.dir/snlua/service_snlua.cpp.o: ../fengnet-src/fengnet.h
 service-src/CMakeFiles/snlua.dir/snlua/service_snlua.cpp.o: ../fengnet-src/fengnet_harbor.h
+service-src/CMakeFiles/snlua.dir/snlua/service_snlua.cpp.o: ../fengnet-src/fengnet_imp.h
 service-src/CMakeFiles/snlua.dir/snlua/service_snlua.cpp.o: ../fengnet-src/fengnet_malloc.h
 service-src/CMakeFiles/snlua.dir/snlua/service_snlua.cpp.o: ../service-src/snlua/service_snlua.cpp
 

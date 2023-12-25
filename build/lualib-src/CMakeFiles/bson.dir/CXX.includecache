@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ubuntu/fengnet/lualib-src/lua-bson.cpp
+lua-bson.h
+/home/ubuntu/fengnet/lualib-src/lua-bson.h
+
+/home/ubuntu/fengnet/lualib-src/lua-bson.h
+lua.h
+/home/ubuntu/fengnet/lualib-src/lua.h
+lauxlib.h
+/home/ubuntu/fengnet/lualib-src/lauxlib.h
+ctime
+-
+unistd.h
+-
+cstdint
+-
+cstdlib
+-
+cstring
+-
+cstdbool
+-
+atomic
+-
+

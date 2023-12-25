@@ -1,0 +1,40 @@
+file(REMOVE_RECURSE
+  "CMakeFiles/fengnet.dir/__/fengnet-src/fengnet.cpp.o"
+  "CMakeFiles/fengnet.dir/__/fengnet-src/fengnet_daemon.cpp.o"
+  "CMakeFiles/fengnet.dir/__/fengnet-src/fengnet_env.cpp.o"
+  "CMakeFiles/fengnet.dir/__/fengnet-src/fengnet_error.cpp.o"
+  "CMakeFiles/fengnet.dir/__/fengnet-src/fengnet_handle.cpp.o"
+  "CMakeFiles/fengnet.dir/__/fengnet-src/fengnet_harbor.cpp.o"
+  "CMakeFiles/fengnet.dir/__/fengnet-src/fengnet_log.cpp.o"
+  "CMakeFiles/fengnet.dir/__/fengnet-src/fengnet_main.cpp.o"
+  "CMakeFiles/fengnet.dir/__/fengnet-src/fengnet_module.cpp.o"
+  "CMakeFiles/fengnet.dir/__/fengnet-src/fengnet_monitor.cpp.o"
+  "CMakeFiles/fengnet.dir/__/fengnet-src/fengnet_mq.cpp.o"
+  "CMakeFiles/fengnet.dir/__/fengnet-src/fengnet_server.cpp.o"
+  "CMakeFiles/fengnet.dir/__/fengnet-src/fengnet_socket.cpp.o"
+  "CMakeFiles/fengnet.dir/__/fengnet-src/fengnet_start.cpp.o"
+  "CMakeFiles/fengnet.dir/__/fengnet-src/fengnet_timer.cpp.o"
+  "CMakeFiles/fengnet.dir/__/fengnet-src/malloc_hook.cpp.o"
+  "CMakeFiles/fengnet.dir/__/fengnet-src/socket_server.cpp.o"
+  "CMakeFiles/fengnet.dir/lua-socket.cpp.o"
+  "CMakeFiles/fengnet.dir/lua-mongo.cpp.o"
+  "CMakeFiles/fengnet.dir/lua-netpack.cpp.o"
+  "CMakeFiles/fengnet.dir/lua-memory.cpp.o"
+  "CMakeFiles/fengnet.dir/lua-multicast.cpp.o"
+  "CMakeFiles/fengnet.dir/lua-cluster.cpp.o"
+  "CMakeFiles/fengnet.dir/lua-crypt.cpp.o"
+  "CMakeFiles/fengnet.dir/lsha1.cpp.o"
+  "CMakeFiles/fengnet.dir/lua-sharedata.cpp.o"
+  "CMakeFiles/fengnet.dir/lua-stm.cpp.o"
+  "CMakeFiles/fengnet.dir/lua-debugchannel.cpp.o"
+  "CMakeFiles/fengnet.dir/lua-datasheet.cpp.o"
+  "CMakeFiles/fengnet.dir/lua-seri.cpp.o"
+  "CMakeFiles/fengnet.dir/lua-fengnet.cpp.o"
+  "../../luaclib/libfengnet.pdb"
+  "../../luaclib/libfengnet.so"
+)
+
+# Per-language clean rules from dependency scanning.
+foreach(lang CXX)
+  include(CMakeFiles/fengnet.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()
