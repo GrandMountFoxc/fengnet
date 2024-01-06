@@ -3,6 +3,7 @@
 FengnetSocket* FengnetSocket::socketInst;
 FengnetSocket::FengnetSocket(){
 	socketInst = this;
+	socketInst->SOCKET_SERVER = nullptr;
 }
 
 void FengnetSocket::fengnet_socket_init(){
@@ -177,4 +178,33 @@ socket_info * FengnetSocket::fengnet_socket_info() {
 
 void FengnetSocket::fengnet_socket_updatetime() {
 	socket_server_updatetime(SOCKET_SERVER, Fengnet::inst->fengnet_now());
+}
+
+void FengnetSocket::sendbuffer_init_(struct socket_sendbuffer *buf, int id, const void *buffer, int sz) {
+	buf->id = id;
+	buf->buffer = buffer;
+	if (sz < 0) {
+		buf->type = SOCKET_BUFFER_OBJECT;
+	} else {
+		buf->type = SOCKET_BUFFER_MEMORY;
+	}
+	buf->sz = (size_t)sz;
+}
+
+int FengnetSocket::fengnet_socket_send(struct fengnet_context *ctx, int id, void *buffer, int sz) {
+	struct socket_sendbuffer tmp;
+	sendbuffer_init_(&tmp, id, buffer, sz);
+	return fengnet_socket_sendbuffer(ctx, &tmp);
+}
+
+int FengnetSocket::fengnet_socket_send_lowpriority(struct fengnet_context *ctx, int id, void *buffer, int sz) {
+	struct socket_sendbuffer tmp;
+	sendbuffer_init_(&tmp, id, buffer, sz);
+	return fengnet_socket_sendbuffer_lowpriority(ctx, &tmp);
+}
+
+int FengnetSocket::fengnet_socket_udp_send(struct fengnet_context *ctx, int id, const char * address, const void *buffer, int sz) {
+	struct socket_sendbuffer tmp;
+	sendbuffer_init_(&tmp, id, buffer, sz);
+	return fengnet_socket_udp_sendbuffer(ctx, address, &tmp);
 }

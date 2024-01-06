@@ -1,7 +1,7 @@
-local skynet = require "skynet"
+local fengnet = require "fengnet"
 local socket = require "http.sockethelper"
 local internal = require "http.internal"
-local dns = require "skynet.dns"
+local dns = require "fengnet.dns"
 local string = string
 local table = table
 
@@ -87,7 +87,7 @@ local function connect(host, timeout)
 		interface.init()
 	end
 	if timeout then
-		skynet.timeout(timeout, function()
+		fengnet.timeout(timeout, function()
 			if not interface.finish then
 				socket.shutdown(fd)	-- shutdown the socket fd, need close later.
 			end

@@ -1,23 +1,23 @@
-local skynet = require "skynet"
-require "skynet.manager"	-- import skynet.launch, ...
+local fengnet = require "fengnet"
+require "fengnet.manager"	-- import fengnet.launch, ...
 
 local globalname = {}
 local queryname = {}
 local harbor = {}
 local harbor_service
 
-skynet.register_protocol {
+fengnet.register_protocol {
 	name = "harbor",
-	id = skynet.PTYPE_HARBOR,
+	id = fengnet.PTYPE_HARBOR,
 	pack = function(...) return ... end,
-	unpack = skynet.tostring,
+	unpack = fengnet.tostring,
 }
 
-skynet.register_protocol {
+fengnet.register_protocol {
 	name = "text",
-	id = skynet.PTYPE_TEXT,
+	id = fengnet.PTYPE_TEXT,
 	pack = function(...) return ... end,
-	unpack = skynet.tostring,
+	unpack = fengnet.tostring,
 }
 
 local function response_name(name)
@@ -35,47 +35,47 @@ function harbor.REGISTER(name, handle)
 	assert(globalname[name] == nil)
 	globalname[name] = handle
 	response_name(name)
-	skynet.redirect(harbor_service, handle, "harbor", 0, "N " .. name)
+	fengnet.redirect(harbor_service, handle, "harbor", 0, "N " .. name)
 end
 
 function harbor.QUERYNAME(name)
 	if name:byte() == 46 then	-- "." , local name
-		skynet.ret(skynet.pack(skynet.localname(name)))
+		fengnet.ret(fengnet.pack(fengnet.localname(name)))
 		return
 	end
 	local result = globalname[name]
 	if result then
-		skynet.ret(skynet.pack(result))
+		fengnet.ret(fengnet.pack(result))
 		return
 	end
 	local queue = queryname[name]
 	if queue == nil then
-		queue = { skynet.response() }
+		queue = { fengnet.response() }
 		queryname[name] = queue
 	else
-		table.insert(queue, skynet.response())
+		table.insert(queue, fengnet.response())
 	end
 end
 
 function harbor.LINK(id)
-	skynet.ret()
+	fengnet.ret()
 end
 
 function harbor.CONNECT(id)
-	skynet.error("Can't connect to other harbor in single node mode")
+	fengnet.error("Can't connect to other harbor in single node mode")
 end
 
-skynet.start(function()
-	local harbor_id = tonumber(skynet.getenv "harbor")
+fengnet.start(function()
+	local harbor_id = tonumber(fengnet.getenv "harbor")
 	assert(harbor_id == 0)
 
-	skynet.dispatch("lua", function (session,source,command,...)
+	fengnet.dispatch("lua", function (session,source,command,...)
 		local f = assert(harbor[command])
 		f(...)
 	end)
-	skynet.dispatch("text", function(session,source,command)
+	fengnet.dispatch("text", function(session,source,command)
 		-- ignore all the command
 	end)
 
-	harbor_service = assert(skynet.launch("harbor", harbor_id, skynet.self()))
+	harbor_service = assert(fengnet.launch("harbor", harbor_id, fengnet.self()))
 end)

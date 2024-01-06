@@ -1,8 +1,8 @@
 local internal = require "http.internal"
-local socket = require "skynet.socket"
-local crypt = require "skynet.crypt"
+local socket = require "fengnet.socket"
+local crypt = require "fengnet.crypt"
 local httpd = require "http.httpd"
-local skynet = require "skynet"
+local fengnet = require "fengnet"
 local sockethelper = require "http.sockethelper"
 local socket_error = sockethelper.socket_error
 
@@ -373,8 +373,8 @@ local function _new_server_ws(socket_id, handle, protocol)
             SSLCTX_SERVER = tls.newctx()
             -- gen cert and key
             -- openssl req -x509 -newkey rsa:2048 -days 3650 -nodes -keyout server-key.pem -out server-cert.pem
-            local certfile = skynet.getenv("certfile") or "./server-cert.pem"
-            local keyfile = skynet.getenv("keyfile") or "./server-key.pem"
+            local certfile = fengnet.getenv("certfile") or "./server-cert.pem"
+            local keyfile = fengnet.getenv("keyfile") or "./server-key.pem"
             SSLCTX_SERVER:set_cert(certfile, keyfile)
         end
         local tls_ctx = tls.newtls("server", SSLCTX_SERVER)
@@ -531,7 +531,7 @@ function M.close(id, code ,reason)
     end, debug.traceback)
     _close_websocket(ws_obj)
     if not ok then
-        skynet.error(err)
+        fengnet.error(err)
     end
 end
 

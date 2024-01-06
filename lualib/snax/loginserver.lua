@@ -1,7 +1,7 @@
-local skynet = require "skynet"
-require "skynet.manager"
-local socket = require "skynet.socket"
-local crypt = require "skynet.crypt"
+local fengnet = require "fengnet"
+require "fengnet.manager"
+local socket = require "fengnet.socket"
+local crypt = require "fengnet.crypt"
 local table = table
 local string = string
 local assert = assert
@@ -37,7 +37,7 @@ local function assert_socket(service, v, fd)
 	if v then
 		return v
 	else
-		skynet.error(string.format("%s failed: socket (fd = %d) closed", service, fd))
+		fengnet.error(string.format("%s failed: socket (fd = %d) closed", service, fd))
 		error(socket_error)
 	end
 end
@@ -83,30 +83,30 @@ local function launch_slave(auth_handler)
 
 	local function ret_pack(ok, err, ...)
 		if ok then
-			return skynet.pack(err, ...)
+			return fengnet.pack(err, ...)
 		else
 			if err == socket_error then
-				return skynet.pack(nil, "socket error")
+				return fengnet.pack(nil, "socket error")
 			else
-				return skynet.pack(false, err)
+				return fengnet.pack(false, err)
 			end
 		end
 	end
 
 	local function auth_fd(fd, addr)
-		skynet.error(string.format("connect from %s (fd = %d)", addr, fd))
+		fengnet.error(string.format("connect from %s (fd = %d)", addr, fd))
 		socket.start(fd)	-- may raise error here
 		local msg, len = ret_pack(pcall(auth, fd, addr))
 		socket.abandon(fd)	-- never raise error here
 		return msg, len
 	end
 
-	skynet.dispatch("lua", function(_,_,...)
+	fengnet.dispatch("lua", function(_,_,...)
 		local ok, msg, len = pcall(auth_fd, ...)
 		if ok then
-			skynet.ret(msg,len)
+			fengnet.ret(msg,len)
 		else
-			skynet.ret(skynet.pack(false, msg))
+			fengnet.ret(fengnet.pack(false, msg))
 		end
 	end)
 end
@@ -115,7 +115,7 @@ local user_login = {}
 
 local function accept(conf, s, fd, addr)
 	-- call slave auth
-	local ok, server, uid, secret = skynet.call(s, "lua",  fd, addr)
+	local ok, server, uid, secret = fengnet.call(s, "lua",  fd, addr)
 	-- slave will accept(start) fd, so we can write to fd later
 
 	if not ok then
@@ -155,15 +155,15 @@ local function launch_master(conf)
 	local slave = {}
 	local balance = 1
 
-	skynet.dispatch("lua", function(_,source,command, ...)
-		skynet.ret(skynet.pack(conf.command_handler(command, ...)))
+	fengnet.dispatch("lua", function(_,source,command, ...)
+		fengnet.ret(fengnet.pack(conf.command_handler(command, ...)))
 	end)
 
 	for i=1,instance do
-		table.insert(slave, skynet.newservice(SERVICE_NAME))
+		table.insert(slave, fengnet.newservice(SERVICE_NAME))
 	end
 
-	skynet.error(string.format("login server listen at : %s %d", host, port))
+	fengnet.error(string.format("login server listen at : %s %d", host, port))
 	local id = socket.listen(host, port)
 	socket.start(id , function(fd, addr)
 		local s = slave[balance]
@@ -174,7 +174,7 @@ local function launch_master(conf)
 		local ok, err = pcall(accept, conf, s, fd, addr)
 		if not ok then
 			if err ~= socket_error then
-				skynet.error(string.format("invalid client (fd = %d) error = %s", fd, err))
+				fengnet.error(string.format("invalid client (fd = %d) error = %s", fd, err))
 			end
 		end
 		socket.close(fd)
@@ -183,8 +183,8 @@ end
 
 local function login(conf)
 	local name = "." .. (conf.name or "login")
-	skynet.start(function()
-		local loginmaster = skynet.localname(name)
+	fengnet.start(function()
+		local loginmaster = fengnet.localname(name)
 		if loginmaster then
 			local auth_handler = assert(conf.auth_handler)
 			launch_master = nil
@@ -195,7 +195,7 @@ local function login(conf)
 			conf.auth_handler = nil
 			assert(conf.login_handler)
 			assert(conf.command_handler)
-			skynet.register(name)
+			fengnet.register(name)
 			launch_master(conf)
 		end
 	end)

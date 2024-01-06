@@ -5,6 +5,7 @@
 FengnetHarbor* FengnetHarbor::harborInst;
 FengnetHarbor::FengnetHarbor(){
     harborInst = this;
+    harborInst->HARBOR = ~0;
 }
 
 inline int FengnetHarbor::invalid_type(int type){

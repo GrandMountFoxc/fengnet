@@ -1,8 +1,8 @@
-local skynet = require "skynet"
+local fengnet = require "fengnet"
 local gateserver = require "snax.gateserver"
-local netpack = require "skynet.netpack"
-local crypt = require "skynet.crypt"
-local socketdriver = require "skynet.socketdriver"
+local netpack = require "fengnet.netpack"
+local crypt = require "fengnet.crypt"
+local socketdriver = require "fengnet.socketdriver"
 local assert = assert
 local b64encode = crypt.base64encode
 local b64decode = crypt.base64decode
@@ -60,7 +60,7 @@ API:
 	server.start(conf)
 		start server
 
-Supported skynet command:
+Supported fengnet command:
 	kick username (may used by loginserver)
 	login username secret  (used by loginserver)
 	logout username (used by agent)
@@ -77,9 +77,9 @@ Config for server.start:
 
 local server = {}
 
-skynet.register_protocol {
+fengnet.register_protocol {
 	name = "client",
-	id = skynet.PTYPE_CLIENT,
+	id = fengnet.PTYPE_CLIENT,
 }
 
 local user_online = {}
@@ -199,7 +199,7 @@ function server.start(conf)
 		local message = netpack.tostring(msg, sz)
 		local ok, result = pcall(do_auth, fd, message, addr)
 		if not ok then
-			skynet.error(result)
+			fengnet.error(result)
 			result = "400 Bad Request"
 		end
 
@@ -253,7 +253,7 @@ function server.start(conf)
 				p = nil
 				if last[2] == nil then
 					local error_msg = string.format("Conflict session %s", crypt.hexencode(session))
-					skynet.error(error_msg)
+					fengnet.error(error_msg)
 					error(error_msg)
 				end
 			end
@@ -266,7 +266,7 @@ function server.start(conf)
 			-- NOTICE: YIELD here, socket may close.
 			result = result or ""
 			if not ok then
-				skynet.error(result)
+				fengnet.error(result)
 				result = string.pack(">BI4", 0, session)
 			else
 				result = result .. string.pack(">BI4", 1, session)
@@ -301,7 +301,7 @@ function server.start(conf)
 		local ok, err = pcall(do_request, fd, message)
 		-- not atomic, may yield
 		if not ok then
-			skynet.error(string.format("Invalid package %s : %s", err, message))
+			fengnet.error(string.format("Invalid package %s : %s", err, message))
 			if connection[fd] then
 				gateserver.closeclient(fd)
 			end

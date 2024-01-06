@@ -8,7 +8,7 @@
 #include "fengnet_monitor.h"
 #include "fengnet_imp.h"
 #include "fengnet_log.h"
-#include "spinlock.h"
+#include "spinlock_s.h"
 
 #include <thread>
 
@@ -198,18 +198,19 @@ void FengnetServer::fengnet_context_endless(uint32_t handle) {
 void FengnetServer::dispatch_message(fengnet_context* ctx, fengnet_message* msg) {
 	assert(ctx->init);
 	CHECKCALLING_BEGIN(ctx)
-	handle_key = (uintptr_t)(ctx->handle);
 	int type = msg->sz >> MESSAGE_TYPE_SHIFT;
 	size_t sz = msg->sz & MESSAGE_TYPE_MASK;
 	FILE *f = (FILE *)atomic_load(&ctx->logfile);
 	if (f) {
 		FengnetLog::fengnet_log_output(f, msg->source, type, msg->session, msg->data, sz);
 	}
-	++ctx->message_count;
+	++(ctx->message_count);
 	int reserve_msg;
 	if (ctx->profile) {
 		ctx->cpu_start = FengnetTimer::timerInst->fengnet_thread_time();
+		// cout<<ctx->handle<<' ';
 		reserve_msg = ctx->cb(ctx, ctx->cb_ud, type, msg->session, msg->source, msg->data, sz);
+		// cout<<ctx->handle<<endl;
 		uint64_t cost_time = FengnetTimer::timerInst->fengnet_thread_time() - ctx->cpu_start;
 		ctx->cpu_cost += cost_time;
 	} else {
@@ -307,6 +308,7 @@ message_queue* FengnetServer::fengnet_context_message_dispatch(fengnet_monitor* 
 		} else {
 			dispatch_message(ctx, &msg);
 		}
+		assert(handle==ctx->handle);
 		
 		// 清除目标和来源保证 monitor 不会误判出现死循环
 		FengnetMonitor::monitorInst->fengnet_monitor_trigger(sm, 0,0);

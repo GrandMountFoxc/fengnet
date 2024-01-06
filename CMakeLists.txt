@@ -7,7 +7,7 @@ add_definitions(-std=c++17)
 # CMake最低版本号要求
 cmake_minimum_required (VERSION 2.8)
 # 项目名称
-project (fengnet)
+project (Fengnet)
 # 设置可执行文件保存路径
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR})
 # 设置条件

@@ -1,1 +1,1 @@
-return require "skynet.cluster"
+return require "fengnet.cluster"

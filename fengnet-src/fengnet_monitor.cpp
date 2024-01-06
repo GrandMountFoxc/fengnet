@@ -32,7 +32,7 @@ void FengnetMonitor::fengnet_monitor_check(fengnet_monitor* sm) {
 	if (sm->version == sm->check_version) {
 		// 若目标地址不为 0，则 sm 所对应那个 worker 可能陷入了死循环
 		if (sm->destination) {
-			fengnetServer->fengnet_context_endless(sm->destination);
+			FengnetServer::serverInst->fengnet_context_endless(sm->destination);
 			// sm->version是atomic类型，不能直接传入变长参数，这里先用临时变量存一下再传入
 			int version = sm->version;
 			Fengnet::inst->fengnet_error(NULL, "A message from [ :%08x ] to [ :%08x ] maybe in an endless loop (version = %d)", sm->source , sm->destination, version);

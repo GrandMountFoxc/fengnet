@@ -3,6 +3,7 @@
 FengnetModule* FengnetModule::moduleInst;
 FengnetModule::FengnetModule(){
 	moduleInst = this;
+	moduleInst->M = nullptr;
 }
 
 void* FengnetModule::_try_open(modules *m, const char * name) {
@@ -101,7 +102,7 @@ fengnet_module* FengnetModule::fengnet_module_query(const char * name) {
 	if (result)
 		return result;
 
-	lock_guard<SpinLock> lock(M->lock);
+	unique_lock<SpinLock> lock(M->lock);
 
 	result = _query(name); // double check 单例模式的双检锁？
 
@@ -120,6 +121,8 @@ fengnet_module* FengnetModule::fengnet_module_query(const char * name) {
 			}
 		}
 	}
+
+	lock.unlock();
 
 	return result;
 }

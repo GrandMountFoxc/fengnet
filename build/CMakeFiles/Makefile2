@@ -168,7 +168,7 @@ clean: lualib-src/CMakeFiles/fengnet.dir/clean
 lualib-src/CMakeFiles/md5.dir/all:
 	$(MAKE) -f lualib-src/CMakeFiles/md5.dir/build.make lualib-src/CMakeFiles/md5.dir/depend
 	$(MAKE) -f lualib-src/CMakeFiles/md5.dir/build.make lualib-src/CMakeFiles/md5.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ubuntu/fengnet/build/CMakeFiles --progress-num=66,67,68,69 "Built target md5"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ubuntu/fengnet/build/CMakeFiles --progress-num=70,71,72,73 "Built target md5"
 .PHONY : lualib-src/CMakeFiles/md5.dir/all
 
 # Include target in all.
@@ -205,7 +205,7 @@ clean: lualib-src/CMakeFiles/md5.dir/clean
 lualib-src/CMakeFiles/sproto.dir/all:
 	$(MAKE) -f lualib-src/CMakeFiles/sproto.dir/build.make lualib-src/CMakeFiles/sproto.dir/depend
 	$(MAKE) -f lualib-src/CMakeFiles/sproto.dir/build.make lualib-src/CMakeFiles/sproto.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ubuntu/fengnet/build/CMakeFiles --progress-num=72,73,74 "Built target sproto"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ubuntu/fengnet/build/CMakeFiles --progress-num=76,77,78 "Built target sproto"
 .PHONY : lualib-src/CMakeFiles/sproto.dir/all
 
 # Include target in all.
@@ -279,7 +279,7 @@ clean: lualib-src/CMakeFiles/client.dir/clean
 lualib-src/CMakeFiles/lpeg.dir/all:
 	$(MAKE) -f lualib-src/CMakeFiles/lpeg.dir/build.make lualib-src/CMakeFiles/lpeg.dir/depend
 	$(MAKE) -f lualib-src/CMakeFiles/lpeg.dir/build.make lualib-src/CMakeFiles/lpeg.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ubuntu/fengnet/build/CMakeFiles --progress-num=59,60,61,62,63,64,65 "Built target lpeg"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ubuntu/fengnet/build/CMakeFiles --progress-num=63,64,65,66,67,68,69 "Built target lpeg"
 .PHONY : lualib-src/CMakeFiles/lpeg.dir/all
 
 # Include target in all.
@@ -315,12 +315,16 @@ clean: lualib-src/CMakeFiles/lpeg.dir/clean
 # Convenience name for "all" pass in the directory.
 service-src/all: service-src/CMakeFiles/snlua.dir/all
 service-src/all: service-src/CMakeFiles/logger.dir/all
+service-src/all: service-src/CMakeFiles/harbor.dir/all
+service-src/all: service-src/CMakeFiles/gate.dir/all
 
 .PHONY : service-src/all
 
 # Convenience name for "clean" pass in the directory.
 service-src/clean: service-src/CMakeFiles/snlua.dir/clean
 service-src/clean: service-src/CMakeFiles/logger.dir/clean
+service-src/clean: service-src/CMakeFiles/harbor.dir/clean
+service-src/clean: service-src/CMakeFiles/gate.dir/clean
 
 .PHONY : service-src/clean
 
@@ -336,7 +340,7 @@ service-src/preinstall:
 service-src/CMakeFiles/snlua.dir/all:
 	$(MAKE) -f service-src/CMakeFiles/snlua.dir/build.make service-src/CMakeFiles/snlua.dir/depend
 	$(MAKE) -f service-src/CMakeFiles/snlua.dir/build.make service-src/CMakeFiles/snlua.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ubuntu/fengnet/build/CMakeFiles --progress-num=70,71 "Built target snlua"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ubuntu/fengnet/build/CMakeFiles --progress-num=74,75 "Built target snlua"
 .PHONY : service-src/CMakeFiles/snlua.dir/all
 
 # Include target in all.
@@ -373,7 +377,7 @@ clean: service-src/CMakeFiles/snlua.dir/clean
 service-src/CMakeFiles/logger.dir/all:
 	$(MAKE) -f service-src/CMakeFiles/logger.dir/build.make service-src/CMakeFiles/logger.dir/depend
 	$(MAKE) -f service-src/CMakeFiles/logger.dir/build.make service-src/CMakeFiles/logger.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ubuntu/fengnet/build/CMakeFiles --progress-num=57,58 "Built target logger"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ubuntu/fengnet/build/CMakeFiles --progress-num=61,62 "Built target logger"
 .PHONY : service-src/CMakeFiles/logger.dir/all
 
 # Include target in all.
@@ -400,6 +404,80 @@ service-src/CMakeFiles/logger.dir/clean:
 
 # clean rule for target.
 clean: service-src/CMakeFiles/logger.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target service-src/CMakeFiles/harbor.dir
+
+# All Build rule for target.
+service-src/CMakeFiles/harbor.dir/all:
+	$(MAKE) -f service-src/CMakeFiles/harbor.dir/build.make service-src/CMakeFiles/harbor.dir/depend
+	$(MAKE) -f service-src/CMakeFiles/harbor.dir/build.make service-src/CMakeFiles/harbor.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ubuntu/fengnet/build/CMakeFiles --progress-num=59,60 "Built target harbor"
+.PHONY : service-src/CMakeFiles/harbor.dir/all
+
+# Include target in all.
+all: service-src/CMakeFiles/harbor.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+service-src/CMakeFiles/harbor.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/fengnet/build/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 service-src/CMakeFiles/harbor.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/fengnet/build/CMakeFiles 0
+.PHONY : service-src/CMakeFiles/harbor.dir/rule
+
+# Convenience name for target.
+harbor: service-src/CMakeFiles/harbor.dir/rule
+
+.PHONY : harbor
+
+# clean rule for target.
+service-src/CMakeFiles/harbor.dir/clean:
+	$(MAKE) -f service-src/CMakeFiles/harbor.dir/build.make service-src/CMakeFiles/harbor.dir/clean
+.PHONY : service-src/CMakeFiles/harbor.dir/clean
+
+# clean rule for target.
+clean: service-src/CMakeFiles/harbor.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target service-src/CMakeFiles/gate.dir
+
+# All Build rule for target.
+service-src/CMakeFiles/gate.dir/all:
+	$(MAKE) -f service-src/CMakeFiles/gate.dir/build.make service-src/CMakeFiles/gate.dir/depend
+	$(MAKE) -f service-src/CMakeFiles/gate.dir/build.make service-src/CMakeFiles/gate.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ubuntu/fengnet/build/CMakeFiles --progress-num=57,58 "Built target gate"
+.PHONY : service-src/CMakeFiles/gate.dir/all
+
+# Include target in all.
+all: service-src/CMakeFiles/gate.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+service-src/CMakeFiles/gate.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/fengnet/build/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 service-src/CMakeFiles/gate.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/fengnet/build/CMakeFiles 0
+.PHONY : service-src/CMakeFiles/gate.dir/rule
+
+# Convenience name for target.
+gate: service-src/CMakeFiles/gate.dir/rule
+
+.PHONY : gate
+
+# clean rule for target.
+service-src/CMakeFiles/gate.dir/clean:
+	$(MAKE) -f service-src/CMakeFiles/gate.dir/build.make service-src/CMakeFiles/gate.dir/clean
+.PHONY : service-src/CMakeFiles/gate.dir/clean
+
+# clean rule for target.
+clean: service-src/CMakeFiles/gate.dir/clean
 
 .PHONY : clean
 

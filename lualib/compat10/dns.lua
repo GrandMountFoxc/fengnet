@@ -1,1 +1,1 @@
-return require "skynet.dns"
+return require "fengnet.dns"

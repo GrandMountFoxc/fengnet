@@ -1,8 +1,8 @@
-local skynet = require "skynet"
-require "skynet.manager"
-local cluster = require "skynet.cluster.core"
+local fengnet = require "fengnet"
+require "fengnet.manager"
+local cluster = require "fengnet.cluster.core"
 
-local config_name = skynet.getenv "cluster"
+local config_name = fengnet.getenv "cluster"
 local node_address = {}
 local node_sender = {}
 local node_sender_closed = {}
@@ -19,7 +19,7 @@ local function open_channel(t, key)
 		local channel
 		while ct do
 			table.insert(ct, co)
-			skynet.wait(co)
+			fengnet.wait(co)
 			channel = ct.channel
 			ct = connecting[key]
 			-- reload again if ct ~= nil
@@ -33,8 +33,8 @@ local function open_channel(t, key)
 		local co = coroutine.running()
 		assert(ct.namequery == nil)
 		ct.namequery = co
-		skynet.error("Waiting for cluster node [".. key.."]")
-		skynet.wait(co)
+		fengnet.error("Waiting for cluster node [".. key.."]")
+		fengnet.wait(co)
 		address = node_address[key]
 	end
 	local succ, err, c
@@ -42,17 +42,17 @@ local function open_channel(t, key)
 		local host, port = string.match(address, "([^:]+):(.*)$")
 		c = node_sender[key]
 		if c == nil then
-			c = skynet.newservice("clustersender", key, nodename, host, port)
+			c = fengnet.newservice("clustersender", key, nodename, host, port)
 			if node_sender[key] then
 				-- double check
-				skynet.kill(c)
+				fengnet.kill(c)
 				c = node_sender[key]
 			else
 				node_sender[key] = c
 			end
 		end
 
-		succ = pcall(skynet.call, c, "lua", "changenode", host, port)
+		succ = pcall(fengnet.call, c, "lua", "changenode", host, port)
 
 		if succ then
 			t[key] = c
@@ -68,7 +68,7 @@ local function open_channel(t, key)
 			succ = true
 		else
 			-- trun off the sender
-			succ, err = pcall(skynet.call, c, "lua", "changenode", false)
+			succ, err = pcall(fengnet.call, c, "lua", "changenode", false)
                         if succ then --trun off failed, wait next index todo turn off
                                 node_sender_closed[key] = true
                         end
@@ -78,7 +78,7 @@ local function open_channel(t, key)
 	end
 	connecting[key] = nil
 	for _, co in ipairs(ct) do
-		skynet.wakeup(co)
+		fengnet.wakeup(co)
 	end
 	if node_address[key] ~= address then
 		return open_channel(t,key)
@@ -104,7 +104,7 @@ local function loadconfig(tmp)
 		if name:sub(1,2) == "__" then
 			name = name:sub(3)
 			config[name] = address
-			skynet.error(string.format("Config %s = %s", name, address))
+			fengnet.error(string.format("Config %s = %s", name, address))
 		else
 			assert(address == false or type(address) == "string")
 			if node_address[name] ~= address then
@@ -118,8 +118,8 @@ local function loadconfig(tmp)
 			end
 			local ct = connecting[name]
 			if ct and ct.namequery and not config.nowaiting then
-				skynet.error(string.format("Cluster node [%s] resloved : %s", name, address))
-				skynet.wakeup(ct.namequery)
+				fengnet.error(string.format("Cluster node [%s] resloved : %s", name, address))
+				fengnet.wakeup(ct.namequery)
 			end
 		end
 	end
@@ -127,42 +127,42 @@ local function loadconfig(tmp)
 		-- wakeup all connecting request
 		for name, ct in pairs(connecting) do
 			if ct.namequery then
-				skynet.wakeup(ct.namequery)
+				fengnet.wakeup(ct.namequery)
 			end
 		end
 	end
 	for _, name in ipairs(reload) do
 		-- open_channel would block
-		skynet.fork(open_channel, node_channel, name)
+		fengnet.fork(open_channel, node_channel, name)
 	end
 end
 
 function command.reload(source, config)
 	loadconfig(config)
-	skynet.ret(skynet.pack(nil))
+	fengnet.ret(fengnet.pack(nil))
 end
 
 function command.listen(source, addr, port, maxclient)
-	local gate = skynet.newservice("gate")
+	local gate = fengnet.newservice("gate")
 	if port == nil then
 		local address = assert(node_address[addr], addr .. " is down")
 		addr, port = string.match(address, "(.+):([^:]+)$")
 		port = tonumber(port)
 		assert(port ~= 0)
-		skynet.call(gate, "lua", "open", { address = addr, port = port, maxclient = maxclient })
-		skynet.ret(skynet.pack(addr, port))
+		fengnet.call(gate, "lua", "open", { address = addr, port = port, maxclient = maxclient })
+		fengnet.ret(fengnet.pack(addr, port))
 	else
-		local realaddr, realport = skynet.call(gate, "lua", "open", { address = addr, port = port, maxclient = maxclient })
-		skynet.ret(skynet.pack(realaddr, realport))
+		local realaddr, realport = fengnet.call(gate, "lua", "open", { address = addr, port = port, maxclient = maxclient })
+		fengnet.ret(fengnet.pack(realaddr, realport))
 	end
 end
 
 function command.sender(source, node)
-	skynet.ret(skynet.pack(node_channel[node]))
+	fengnet.ret(fengnet.pack(node_channel[node]))
 end
 
 function command.senders(source)
-	skynet.retpack(node_sender)
+	fengnet.retpack(node_sender)
 end
 
 local proxy = {}
@@ -177,16 +177,16 @@ function command.proxy(source, node, name)
 	local fullname = node .. "." .. name
 	local p = proxy[fullname]
 	if p == nil then
-		p = skynet.newservice("clusterproxy", node, name)
+		p = fengnet.newservice("clusterproxy", node, name)
 		-- double check
 		if proxy[fullname] then
-			skynet.kill(p)
+			fengnet.kill(p)
 			p = proxy[fullname]
 		else
 			proxy[fullname] = p
 		end
 	end
-	skynet.ret(skynet.pack(p))
+	fengnet.ret(fengnet.pack(p))
 end
 
 local cluster_agent = {}	-- fd:service
@@ -195,7 +195,7 @@ local register_name = {}
 local function clearnamecache()
 	for fd, service in pairs(cluster_agent) do
 		if type(service) == "number" then
-			skynet.send(service, "lua", "namechange")
+			fengnet.send(service, "lua", "namechange")
 		end
 	end
 end
@@ -210,36 +210,36 @@ function command.register(source, name, addr)
 	end
 	register_name[addr] = name
 	register_name[name] = addr
-	skynet.ret(nil)
-	skynet.error(string.format("Register [%s] :%08x", name, addr))
+	fengnet.ret(nil)
+	fengnet.error(string.format("Register [%s] :%08x", name, addr))
 end
 
 function command.unregister(_, name)
 	if not register_name[name] then
-		return skynet.ret(nil)
+		return fengnet.ret(nil)
 	end
 	local addr = register_name[name]
 	register_name[addr] = nil
 	register_name[name] = nil
 	clearnamecache()
-	skynet.ret(nil)
-	skynet.error(string.format("Unregister [%s] :%08x", name, addr))
+	fengnet.ret(nil)
+	fengnet.error(string.format("Unregister [%s] :%08x", name, addr))
 end
 
 function command.queryname(source, name)
-	skynet.ret(skynet.pack(register_name[name]))
+	fengnet.ret(fengnet.pack(register_name[name]))
 end
 
 function command.socket(source, subcmd, fd, msg)
 	if subcmd == "open" then
-		skynet.error(string.format("socket accept from %s", msg))
+		fengnet.error(string.format("socket accept from %s", msg))
 		-- new cluster agent
 		cluster_agent[fd] = false
-		local agent = skynet.newservice("clusteragent", skynet.self(), source, fd)
+		local agent = fengnet.newservice("clusteragent", fengnet.self(), source, fd)
 		local closed = cluster_agent[fd]
 		cluster_agent[fd] = agent
 		if closed then
-			skynet.send(agent, "lua", "exit")
+			fengnet.send(agent, "lua", "exit")
 			cluster_agent[fd] = nil
 		end
 	else
@@ -249,18 +249,18 @@ function command.socket(source, subcmd, fd, msg)
 			if type(agent) == "boolean" then
 				cluster_agent[fd] = true
 			elseif agent then
-				skynet.send(agent, "lua", "exit")
+				fengnet.send(agent, "lua", "exit")
 				cluster_agent[fd] = nil
 			end
 		else
-			skynet.error(string.format("socket %s %d %s", subcmd, fd, msg or ""))
+			fengnet.error(string.format("socket %s %d %s", subcmd, fd, msg or ""))
 		end
 	end
 end
 
-skynet.start(function()
+fengnet.start(function()
 	loadconfig()
-	skynet.dispatch("lua", function(session , source, cmd, ...)
+	fengnet.dispatch("lua", function(session , source, cmd, ...)
 		local f = assert(command[cmd])
 		f(source, ...)
 	end)

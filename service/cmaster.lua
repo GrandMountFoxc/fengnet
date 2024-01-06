@@ -1,5 +1,5 @@
-local skynet = require "skynet"
-local socket = require "skynet.socket"
+local fengnet = require "fengnet"
+local socket = require "fengnet.socket"
 
 --[[
 	master manage data :
@@ -33,11 +33,11 @@ local function read_package(fd)
 	assert(sz, "closed")
 	sz = string.byte(sz)
 	local content = assert(socket.read(fd, sz), "closed")
-	return skynet.unpack(content)
+	return fengnet.unpack(content)
 end
 
 local function pack_package(...)
-	local message = skynet.packstring(...)
+	local message = fengnet.packstring(...)
 	local size = #message
 	assert(size <= 255 , "too long")
 	return string.char(size) .. message
@@ -90,15 +90,15 @@ local function dispatch_slave(fd)
 			socket.write(fd, pack_package("N", name, address))
 		end
 	else
-		skynet.error("Invalid slave message type " .. t)
+		fengnet.error("Invalid slave message type " .. t)
 	end
 end
 
 local function monitor_slave(slave_id, slave_address)
 	local fd = slave_node[slave_id].fd
-	skynet.error(string.format("Harbor %d (fd=%d) report %s", slave_id, fd, slave_address))
+	fengnet.error(string.format("Harbor %d (fd=%d) report %s", slave_id, fd, slave_address))
 	while pcall(dispatch_slave, fd) do end
-	skynet.error("slave " ..slave_id .. " is down")
+	fengnet.error("slave " ..slave_id .. " is down")
 	local message = pack_package("D", slave_id)
 	slave_node[slave_id].fd = 0
 	for k,v in pairs(slave_node) do
@@ -107,18 +107,18 @@ local function monitor_slave(slave_id, slave_address)
 	socket.close(fd)
 end
 
-skynet.start(function()
-	local master_addr = skynet.getenv "standalone"
-	skynet.error("master listen socket " .. tostring(master_addr))
+fengnet.start(function()
+	local master_addr = fengnet.getenv "standalone"
+	fengnet.error("master listen socket " .. tostring(master_addr))
 	local fd = socket.listen(master_addr)
 	socket.start(fd , function(id, addr)
-		skynet.error("connect from " .. addr .. " " .. id)
+		fengnet.error("connect from " .. addr .. " " .. id)
 		socket.start(id)
 		local ok, slave, slave_addr = pcall(handshake, id)
 		if ok then
-			skynet.fork(monitor_slave, slave, slave_addr)
+			fengnet.fork(monitor_slave, slave, slave_addr)
 		else
-			skynet.error(string.format("disconnect fd = %d, error = %s", id, slave))
+			fengnet.error(string.format("disconnect fd = %d, error = %s", id, slave))
 			socket.close(id)
 		end
 	end)

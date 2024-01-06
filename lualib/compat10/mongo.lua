@@ -1,1 +1,1 @@
-return require "skynet.db.mongo"
+return require "fengnet.db.mongo"

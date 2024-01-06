@@ -1,4 +1,4 @@
-local skynet = require "skynet"
+local fengnet = require "fengnet"
 
 local function dft_loader(path, name, G)
 	local errlist = {}
@@ -73,7 +73,7 @@ return function (name , G, loader)
 		end
 	end
 
-	local path = assert(skynet.getenv "snax" , "please set snax in config file")
+	local path = assert(fengnet.getenv "snax" , "please set snax in config file")
 	local mainfunc, pattern = loader(path, name, G)
 
 	setmetatable(G,	{ __index = env , __newindex = init_system })

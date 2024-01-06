@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC  -O0 -g2 -ggdb  -shared -Wl,-soname,libharbor.so -o ../../cservice/libharbor.so CMakeFiles/harbor.dir/service_harbor.cpp.o 

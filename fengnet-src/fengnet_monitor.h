@@ -33,8 +33,6 @@ public:
     void fengnet_monitor_delete(fengnet_monitor*);
     void fengnet_monitor_trigger(fengnet_monitor *, uint32_t source, uint32_t destination);
     void fengnet_monitor_check(fengnet_monitor *);
-private:
-    shared_ptr<FengnetServer> fengnetServer;
 };
 
 #endif

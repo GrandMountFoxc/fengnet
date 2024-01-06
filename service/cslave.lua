@@ -1,7 +1,7 @@
-local skynet = require "skynet"
-local socket = require "skynet.socket"
-local socketdriver = require "skynet.socketdriver"
-require "skynet.manager"	-- import skynet.launch, ...
+local fengnet = require "fengnet"
+local socket = require "fengnet.socket"
+local socketdriver = require "fengnet.socketdriver"
+require "fengnet.manager"	-- import fengnet.launch, ...
 local table = table
 
 local slaves = {}
@@ -18,11 +18,11 @@ local function read_package(fd)
 	assert(sz, "closed")
 	sz = string.byte(sz)
 	local content = assert(socket.read(fd, sz), "closed")
-	return skynet.unpack(content)
+	return fengnet.unpack(content)
 end
 
 local function pack_package(...)
-	local message = skynet.packstring(...)
+	local message = fengnet.packstring(...)
 	local size = #message
 	assert(size <= 255 , "too long")
 	return string.char(size) .. message
@@ -43,15 +43,15 @@ local function connect_slave(slave_id, address)
 		if slaves[slave_id] == nil then
 			local fd = assert(socket.open(address), "Can't connect to "..address)
 			socketdriver.nodelay(fd)
-			skynet.error(string.format("Connect to harbor %d (fd=%d), %s", slave_id, fd, address))
+			fengnet.error(string.format("Connect to harbor %d (fd=%d), %s", slave_id, fd, address))
 			slaves[slave_id] = fd
 			monitor_clear(slave_id)
 			socket.abandon(fd)
-			skynet.send(harbor_service, "harbor", string.format("S %d %d",fd,slave_id))
+			fengnet.send(harbor_service, "harbor", string.format("S %d %d",fd,slave_id))
 		end
 	end)
 	if not ok then
-		skynet.error(err)
+		fengnet.error(err)
 	end
 end
 
@@ -62,7 +62,7 @@ local function ready()
 		connect_slave(k,v)
 	end
 	for name,address in pairs(globalname) do
-		skynet.redirect(harbor_service, address, "harbor", 0, "N " .. name)
+		fengnet.redirect(harbor_service, address, "harbor", 0, "N " .. name)
 	end
 end
 
@@ -91,7 +91,7 @@ local function monitor_master(master_fd)
 				globalname[id_name] = address
 				response_name(id_name)
 				if connect_queue == nil then
-					skynet.redirect(harbor_service, address, "harbor", 0, "N " .. id_name)
+					fengnet.redirect(harbor_service, address, "harbor", 0, "N " .. id_name)
 				end
 			elseif t == 'D' then
 				local fd = slaves[id_name]
@@ -102,7 +102,7 @@ local function monitor_master(master_fd)
 				end
 			end
 		else
-			skynet.error("Master disconnect")
+			fengnet.error("Master disconnect")
 			for _, v in ipairs(monitor_master_set) do
 				v(true)
 			end
@@ -116,35 +116,35 @@ local function accept_slave(fd)
 	socket.start(fd)
 	local id = socket.read(fd, 1)
 	if not id then
-		skynet.error(string.format("Connection (fd =%d) closed", fd))
+		fengnet.error(string.format("Connection (fd =%d) closed", fd))
 		socket.close(fd)
 		return
 	end
 	id = string.byte(id)
 	if slaves[id] ~= nil then
-		skynet.error(string.format("Slave %d exist (fd =%d)", id, fd))
+		fengnet.error(string.format("Slave %d exist (fd =%d)", id, fd))
 		socket.close(fd)
 		return
 	end
 	slaves[id] = fd
 	monitor_clear(id)
 	socket.abandon(fd)
-	skynet.error(string.format("Harbor %d connected (fd = %d)", id, fd))
-	skynet.send(harbor_service, "harbor", string.format("A %d %d", fd, id))
+	fengnet.error(string.format("Harbor %d connected (fd = %d)", id, fd))
+	fengnet.send(harbor_service, "harbor", string.format("A %d %d", fd, id))
 end
 
-skynet.register_protocol {
+fengnet.register_protocol {
 	name = "harbor",
-	id = skynet.PTYPE_HARBOR,
+	id = fengnet.PTYPE_HARBOR,
 	pack = function(...) return ... end,
-	unpack = skynet.tostring,
+	unpack = fengnet.tostring,
 }
 
-skynet.register_protocol {
+fengnet.register_protocol {
 	name = "text",
-	id = skynet.PTYPE_TEXT,
+	id = fengnet.PTYPE_TEXT,
 	pack = function(...) return ... end,
-	unpack = skynet.tostring,
+	unpack = fengnet.tostring,
 }
 
 local function monitor_harbor(master_fd)
@@ -154,7 +154,7 @@ local function monitor_harbor(master_fd)
 		if t == 'Q' then
 			-- query name
 			if globalname[arg] then
-				skynet.redirect(harbor_service, globalname[arg], "harbor", 0, "N " .. arg)
+				fengnet.redirect(harbor_service, globalname[arg], "harbor", 0, "N " .. arg)
 			else
 				socket.write(master_fd, pack_package("Q", arg))
 			end
@@ -166,7 +166,7 @@ local function monitor_harbor(master_fd)
 			end
 			slaves[id] = false
 		else
-			skynet.error("Unknown command ", command)
+			fengnet.error("Unknown command ", command)
 		end
 	end
 end
@@ -176,7 +176,7 @@ function harbor.REGISTER(fd, name, handle)
 	globalname[name] = handle
 	response_name(name)
 	socket.write(fd, pack_package("R", name, handle))
-	skynet.redirect(harbor_service, handle, "harbor", 0, "N " .. name)
+	fengnet.redirect(harbor_service, handle, "harbor", 0, "N " .. name)
 end
 
 function harbor.LINK(fd, id)
@@ -184,14 +184,14 @@ function harbor.LINK(fd, id)
 		if monitor[id] == nil then
 			monitor[id] = {}
 		end
-		table.insert(monitor[id], skynet.response())
+		table.insert(monitor[id], fengnet.response())
 	else
-		skynet.ret()
+		fengnet.ret()
 	end
 end
 
 function harbor.LINKMASTER()
-	table.insert(monitor_master_set, skynet.response())
+	table.insert(monitor_master_set, fengnet.response())
 end
 
 function harbor.CONNECT(fd, id)
@@ -199,58 +199,58 @@ function harbor.CONNECT(fd, id)
 		if monitor[id] == nil then
 			monitor[id] = {}
 		end
-		table.insert(monitor[id], skynet.response())
+		table.insert(monitor[id], fengnet.response())
 	else
-		skynet.ret()
+		fengnet.ret()
 	end
 end
 
 function harbor.QUERYNAME(fd, name)
 	if name:byte() == 46 then	-- "." , local name
-		skynet.ret(skynet.pack(skynet.localname(name)))
+		fengnet.ret(fengnet.pack(fengnet.localname(name)))
 		return
 	end
 	local result = globalname[name]
 	if result then
-		skynet.ret(skynet.pack(result))
+		fengnet.ret(fengnet.pack(result))
 		return
 	end
 	local queue = queryname[name]
 	if queue == nil then
 		socket.write(fd, pack_package("Q", name))
-		queue = { skynet.response() }
+		queue = { fengnet.response() }
 		queryname[name] = queue
 	else
-		table.insert(queue, skynet.response())
+		table.insert(queue, fengnet.response())
 	end
 end
 
-skynet.start(function()
-	local master_addr = skynet.getenv "master"
-	local harbor_id = tonumber(skynet.getenv "harbor")
-	local slave_address = assert(skynet.getenv "address")
+fengnet.start(function()
+	local master_addr = fengnet.getenv "master"
+	local harbor_id = tonumber(fengnet.getenv "harbor")
+	local slave_address = assert(fengnet.getenv "address")
 	local slave_fd = socket.listen(slave_address)
-	skynet.error("slave connect to master " .. tostring(master_addr))
+	fengnet.error("slave connect to master " .. tostring(master_addr))
 	local master_fd = assert(socket.open(master_addr), "Can't connect to master")
 
-	skynet.dispatch("lua", function (_,_,command,...)
+	fengnet.dispatch("lua", function (_,_,command,...)
 		local f = assert(harbor[command])
 		f(master_fd, ...)
 	end)
-	skynet.dispatch("text", monitor_harbor(master_fd))
+	fengnet.dispatch("text", monitor_harbor(master_fd))
 
-	harbor_service = assert(skynet.launch("harbor", harbor_id, skynet.self()))
+	harbor_service = assert(fengnet.launch("harbor", harbor_id, fengnet.self()))
 
 	local hs_message = pack_package("H", harbor_id, slave_address)
 	socket.write(master_fd, hs_message)
 	local t, n = read_package(master_fd)
 	assert(t == "W" and type(n) == "number", "slave shakehand failed")
-	skynet.error(string.format("Waiting for %d harbors", n))
-	skynet.fork(monitor_master, master_fd)
+	fengnet.error(string.format("Waiting for %d harbors", n))
+	fengnet.fork(monitor_master, master_fd)
 	if n > 0 then
 		local co = coroutine.running()
 		socket.start(slave_fd, function(fd, addr)
-			skynet.error(string.format("New connection (fd = %d, %s)",fd, addr))
+			fengnet.error(string.format("New connection (fd = %d, %s)",fd, addr))
 			socketdriver.nodelay(fd)
 			if pcall(accept_slave,fd) then
 				local s = 0
@@ -258,13 +258,13 @@ skynet.start(function()
 					s = s + 1
 				end
 				if s >= n then
-					skynet.wakeup(co)
+					fengnet.wakeup(co)
 				end
 			end
 		end)
-		skynet.wait()
+		fengnet.wait()
 	end
 	socket.close(slave_fd)
-	skynet.error("Shakehand ready")
-	skynet.fork(ready)
+	fengnet.error("Shakehand ready")
+	fengnet.fork(ready)
 end)

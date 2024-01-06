@@ -80,17 +80,15 @@ install/fast: preinstall/fast
 	/usr/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
 
-# Special rule for the target install/strip
-install/strip: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
 
-# Special rule for the target install/strip
-install/strip/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip/fast
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+
+.PHONY : list_install_components/fast
 
 # Special rule for the target rebuild_cache
 rebuild_cache:
@@ -103,6 +101,18 @@ rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
 
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip/fast
+
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
@@ -113,16 +123,6 @@ edit_cache:
 edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
-
-# Special rule for the target list_install_components
-list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
-.PHONY : list_install_components
-
-# Special rule for the target list_install_components
-list_install_components/fast: list_install_components
-
-.PHONY : list_install_components/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -186,6 +186,36 @@ logger/fast:
 	cd /home/ubuntu/fengnet/build && $(MAKE) -f service-src/CMakeFiles/logger.dir/build.make service-src/CMakeFiles/logger.dir/build
 .PHONY : logger/fast
 
+# Convenience name for target.
+service-src/CMakeFiles/harbor.dir/rule:
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f CMakeFiles/Makefile2 service-src/CMakeFiles/harbor.dir/rule
+.PHONY : service-src/CMakeFiles/harbor.dir/rule
+
+# Convenience name for target.
+harbor: service-src/CMakeFiles/harbor.dir/rule
+
+.PHONY : harbor
+
+# fast build rule for target.
+harbor/fast:
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f service-src/CMakeFiles/harbor.dir/build.make service-src/CMakeFiles/harbor.dir/build
+.PHONY : harbor/fast
+
+# Convenience name for target.
+service-src/CMakeFiles/gate.dir/rule:
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f CMakeFiles/Makefile2 service-src/CMakeFiles/gate.dir/rule
+.PHONY : service-src/CMakeFiles/gate.dir/rule
+
+# Convenience name for target.
+gate: service-src/CMakeFiles/gate.dir/rule
+
+.PHONY : gate
+
+# fast build rule for target.
+gate/fast:
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f service-src/CMakeFiles/gate.dir/build.make service-src/CMakeFiles/gate.dir/build
+.PHONY : gate/fast
+
 logger/service_logger.o: logger/service_logger.cpp.o
 
 .PHONY : logger/service_logger.o
@@ -212,6 +242,60 @@ logger/service_logger.s: logger/service_logger.cpp.s
 logger/service_logger.cpp.s:
 	cd /home/ubuntu/fengnet/build && $(MAKE) -f service-src/CMakeFiles/logger.dir/build.make service-src/CMakeFiles/logger.dir/logger/service_logger.cpp.s
 .PHONY : logger/service_logger.cpp.s
+
+service_gate.o: service_gate.cpp.o
+
+.PHONY : service_gate.o
+
+# target to build an object file
+service_gate.cpp.o:
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f service-src/CMakeFiles/gate.dir/build.make service-src/CMakeFiles/gate.dir/service_gate.cpp.o
+.PHONY : service_gate.cpp.o
+
+service_gate.i: service_gate.cpp.i
+
+.PHONY : service_gate.i
+
+# target to preprocess a source file
+service_gate.cpp.i:
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f service-src/CMakeFiles/gate.dir/build.make service-src/CMakeFiles/gate.dir/service_gate.cpp.i
+.PHONY : service_gate.cpp.i
+
+service_gate.s: service_gate.cpp.s
+
+.PHONY : service_gate.s
+
+# target to generate assembly for a file
+service_gate.cpp.s:
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f service-src/CMakeFiles/gate.dir/build.make service-src/CMakeFiles/gate.dir/service_gate.cpp.s
+.PHONY : service_gate.cpp.s
+
+service_harbor.o: service_harbor.cpp.o
+
+.PHONY : service_harbor.o
+
+# target to build an object file
+service_harbor.cpp.o:
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f service-src/CMakeFiles/harbor.dir/build.make service-src/CMakeFiles/harbor.dir/service_harbor.cpp.o
+.PHONY : service_harbor.cpp.o
+
+service_harbor.i: service_harbor.cpp.i
+
+.PHONY : service_harbor.i
+
+# target to preprocess a source file
+service_harbor.cpp.i:
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f service-src/CMakeFiles/harbor.dir/build.make service-src/CMakeFiles/harbor.dir/service_harbor.cpp.i
+.PHONY : service_harbor.cpp.i
+
+service_harbor.s: service_harbor.cpp.s
+
+.PHONY : service_harbor.s
+
+# target to generate assembly for a file
+service_harbor.cpp.s:
+	cd /home/ubuntu/fengnet/build && $(MAKE) -f service-src/CMakeFiles/harbor.dir/build.make service-src/CMakeFiles/harbor.dir/service_harbor.cpp.s
+.PHONY : service_harbor.cpp.s
 
 snlua/service_snlua.o: snlua/service_snlua.cpp.o
 
@@ -247,16 +331,24 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... install/local"
-	@echo "... snlua"
 	@echo "... install"
+	@echo "... list_install_components"
+	@echo "... snlua"
+	@echo "... rebuild_cache"
 	@echo "... install/strip"
 	@echo "... logger"
-	@echo "... rebuild_cache"
+	@echo "... harbor"
+	@echo "... gate"
 	@echo "... edit_cache"
-	@echo "... list_install_components"
 	@echo "... logger/service_logger.o"
 	@echo "... logger/service_logger.i"
 	@echo "... logger/service_logger.s"
+	@echo "... service_gate.o"
+	@echo "... service_gate.i"
+	@echo "... service_gate.s"
+	@echo "... service_harbor.o"
+	@echo "... service_harbor.i"
+	@echo "... service_harbor.s"
 	@echo "... snlua/service_snlua.o"
 	@echo "... snlua/service_snlua.i"
 	@echo "... snlua/service_snlua.s"

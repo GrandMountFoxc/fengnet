@@ -3,6 +3,7 @@
 FengnetEnv* FengnetEnv::inst;
 FengnetEnv::FengnetEnv(){
     inst = this;
+    inst->L = nullptr;
 }
 
 const char* FengnetEnv::fengnet_getenv(const char* key){

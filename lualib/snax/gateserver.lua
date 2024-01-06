@@ -1,6 +1,6 @@
-local skynet = require "skynet"
-local netpack = require "skynet.netpack"
-local socketdriver = require "skynet.socketdriver"
+local fengnet = require "fengnet"
+local netpack = require "fengnet.netpack"
+local socketdriver = require "fengnet.socketdriver"
 
 local gateserver = {}
 
@@ -42,11 +42,11 @@ function gateserver.start(handler)
 		local port = assert(conf.port)
 		maxclient = conf.maxclient or 1024
 		nodelay = conf.nodelay
-		skynet.error(string.format("Listen on %s:%d", address, port))
+		fengnet.error(string.format("Listen on %s:%d", address, port))
 		socket = socketdriver.listen(address, port)
 		listen_context.co = coroutine.running()
 		listen_context.fd = socket
-		skynet.wait(listen_context.co)
+		fengnet.wait(listen_context.co)
 		conf.address = listen_context.addr
 		conf.port = listen_context.port
 		listen_context = nil
@@ -67,7 +67,7 @@ function gateserver.start(handler)
 		if connection[fd] then
 			handler.message(fd, msg, sz)
 		else
-			skynet.error(string.format("Drop message from fd (%d) : %s", fd, netpack.tostring(msg,sz)))
+			fengnet.error(string.format("Drop message from fd (%d) : %s", fd, netpack.tostring(msg,sz)))
 		end
 	end
 
@@ -78,7 +78,7 @@ function gateserver.start(handler)
 		if fd then
 			-- may dispatch even the handler.message blocked
 			-- If the handler.message never block, the queue should be empty, so only fork once and then exit.
-			skynet.fork(dispatch_queue)
+			fengnet.fork(dispatch_queue)
 			dispatch_msg(fd, msg, sz)
 
 			for fd, msg, sz in netpack.pop, queue do
@@ -118,7 +118,7 @@ function gateserver.start(handler)
 
 	function MSG.error(fd, msg)
 		if fd == socket then
-			skynet.error("gateserver accept error:",msg)
+			fengnet.error("gateserver accept error:",msg)
 		else
 			socketdriver.shutdown(fd)
 			if handler.error then
@@ -140,15 +140,15 @@ function gateserver.start(handler)
 				assert(id == listen_context.fd)
 				listen_context.addr = addr
 				listen_context.port = port
-				skynet.wakeup(co)
+				fengnet.wakeup(co)
 				listen_context.co = nil
 			end
 		end
 	end
 
-	skynet.register_protocol {
+	fengnet.register_protocol {
 		name = "socket",
-		id = skynet.PTYPE_SOCKET,	-- PTYPE_SOCKET = 6
+		id = fengnet.PTYPE_SOCKET,	-- PTYPE_SOCKET = 6
 		unpack = function ( msg, sz )
 			return netpack.filter( queue, msg, sz)
 		end,
@@ -161,12 +161,12 @@ function gateserver.start(handler)
 	}
 
 	local function init()
-		skynet.dispatch("lua", function (_, address, cmd, ...)
+		fengnet.dispatch("lua", function (_, address, cmd, ...)
 			local f = CMD[cmd]
 			if f then
-				skynet.ret(skynet.pack(f(address, ...)))
+				fengnet.ret(fengnet.pack(f(address, ...)))
 			else
-				skynet.ret(skynet.pack(handler.command(cmd, address, ...)))
+				fengnet.ret(fengnet.pack(handler.command(cmd, address, ...)))
 			end
 		end)
 	end
@@ -174,7 +174,7 @@ function gateserver.start(handler)
 	if handler.embed then
 		init()
 	else
-		skynet.start(init)
+		fengnet.start(init)
 	end
 end
 

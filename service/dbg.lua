@@ -1,4 +1,4 @@
-local skynet = require "skynet"
+local fengnet = require "fengnet"
 
 local cmd = { ... }
 
@@ -34,10 +34,10 @@ local function dump_list(list)
 	end
 end
 
-skynet.start(function()
-	local list = skynet.call(".launcher","lua", table.unpack(cmd))
+fengnet.start(function()
+	local list = fengnet.call(".launcher","lua", table.unpack(cmd))
 	if list then
 		dump_list(list)
 	end
-	skynet.exit()
+	fengnet.exit()
 end)

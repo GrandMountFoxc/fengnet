@@ -151,6 +151,7 @@ lualib-src/CMakeFiles/fengnet.dir/__/fengnet-src/fengnet_server.cpp.o: ../fengne
 lualib-src/CMakeFiles/fengnet.dir/__/fengnet-src/fengnet_server.cpp.o: ../fengnet-src/socket_poll.h
 lualib-src/CMakeFiles/fengnet.dir/__/fengnet-src/fengnet_server.cpp.o: ../fengnet-src/socket_server.h
 lualib-src/CMakeFiles/fengnet.dir/__/fengnet-src/fengnet_server.cpp.o: ../fengnet-src/spinlock.h
+lualib-src/CMakeFiles/fengnet.dir/__/fengnet-src/fengnet_server.cpp.o: ../fengnet-src/spinlock_s.h
 
 lualib-src/CMakeFiles/fengnet.dir/__/fengnet-src/fengnet_socket.cpp.o: ../fengnet-src/fengnet.h
 lualib-src/CMakeFiles/fengnet.dir/__/fengnet-src/fengnet_socket.cpp.o: ../fengnet-src/fengnet_env.h

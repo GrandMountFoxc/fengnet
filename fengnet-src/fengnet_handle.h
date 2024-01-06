@@ -17,6 +17,8 @@
 #include <shared_mutex>
 #include <memory>
 
+using namespace std;
+
 struct handle_name {
 	char* name;
 	uint32_t handle;

@@ -1,5 +1,5 @@
-local skynet = require "skynet"
-local memory = require "skynet.memory"
+local fengnet = require "fengnet"
+local memory = require "fengnet.memory"
 
 memory.dumpinfo()
 --memory.dump()
@@ -11,4 +11,4 @@ end
 print("Total memory:", memory.total())
 print("Total block:", memory.block())
 
-skynet.start(function() skynet.exit() end)
+fengnet.start(function() fengnet.exit() end)

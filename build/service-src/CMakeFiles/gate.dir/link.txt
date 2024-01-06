@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC  -O0 -g2 -ggdb  -shared -Wl,-soname,libgate.so -o ../../cservice/libgate.so CMakeFiles/gate.dir/service_gate.cpp.o 

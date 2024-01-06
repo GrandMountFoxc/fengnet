@@ -45,6 +45,7 @@ socket_server* SocketServer::socket_server_create(uint64_t time){
 		s->type = SOCKET_TYPE_INVALID;
 		clear_wb_list(&s->high);
 		clear_wb_list(&s->low);
+		// s->dw_lock = SpinLock();
 	}
     ss->alloc_id = 0;
 	ss->event_n = 0;

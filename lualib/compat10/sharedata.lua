@@ -1,1 +1,1 @@
-return require "skynet.sharedata"
+return require "fengnet.sharedata"

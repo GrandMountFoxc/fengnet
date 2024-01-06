@@ -1,1 +1,1 @@
-return require "skynet.mqueue"
+return require "fengnet.mqueue"

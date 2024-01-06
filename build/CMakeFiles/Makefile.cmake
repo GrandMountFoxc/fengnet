@@ -62,5 +62,7 @@ set(CMAKE_DEPEND_INFO_FILES
   "lualib-src/CMakeFiles/lpeg.dir/DependInfo.cmake"
   "service-src/CMakeFiles/snlua.dir/DependInfo.cmake"
   "service-src/CMakeFiles/logger.dir/DependInfo.cmake"
+  "service-src/CMakeFiles/harbor.dir/DependInfo.cmake"
+  "service-src/CMakeFiles/gate.dir/DependInfo.cmake"
   "fengnet-src/CMakeFiles/Fengnet.dir/DependInfo.cmake"
   )

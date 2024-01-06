@@ -1,7 +1,7 @@
-local skynet = require "skynet"
-local sharedata = require "skynet.sharedata.corelib"
+local fengnet = require "fengnet"
+local sharedata = require "fengnet.sharedata.corelib"
 local table = table
-local cache = require "skynet.codecache"
+local cache = require "fengnet.codecache"
 cache.mode "OFF"	-- turn off codecache, because CMD.new may load data file
 
 local NORET = {}
@@ -28,7 +28,7 @@ end
 
 local function collectobj()
 	while true do
-		skynet.sleep(60*100)	-- sleep 1min
+		fengnet.sleep(60*100)	-- sleep 1min
 		if collect_tick <= 0 then
 			collect_tick = 10	-- reset tick count to 10 min
 			collectgarbage()
@@ -63,7 +63,7 @@ function CMD.new(name, t, ...)
 		else
 			f = assert(load(t, "=" .. name, "bt", value))
 		end
-		local _, ret = assert(skynet.pcall(f, ...))
+		local _, ret = assert(fengnet.pcall(f, ...))
 		setmetatable(value, nil)
 		if type(ret) == "table" then
 			value = ret
@@ -150,18 +150,18 @@ function CMD.monitor(name, obj)
 	end
 	pool_count[name].n = n
 
-	table.insert(v.watch, skynet.response())
+	table.insert(v.watch, fengnet.response())
 
 	return NORET
 end
 
-skynet.start(function()
-	skynet.fork(collectobj)
-	skynet.dispatch("lua", function (session, source ,cmd, ...)
+fengnet.start(function()
+	fengnet.fork(collectobj)
+	fengnet.dispatch("lua", function (session, source ,cmd, ...)
 		local f = assert(CMD[cmd])
 		local r = f(...)
 		if r ~= NORET then
-			skynet.ret(skynet.pack(r))
+			fengnet.ret(fengnet.pack(r))
 		end
 	end)
 end)

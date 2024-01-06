@@ -51,6 +51,6 @@ if LUA_PRELOAD then
 	LUA_PRELOAD = nil
 end
 
-_G.require = (require "skynet.require").require	-- _G是全局变量表，那这里应该就可以理解成是把原本lua的require替换成skynet的require
+_G.require = (require "fengnet.require").require	-- _G是全局变量表，那这里应该就可以理解成是把原本lua的require替换成fengnet的require
 
 main(select(2, table.unpack(args)))

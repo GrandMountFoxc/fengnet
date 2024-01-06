@@ -6,5 +6,5 @@ CXX_FLAGS =  -O0 -g2 -ggdb -fPIC   -std=c++17
 
 CXX_DEFINES = -Dlogger_EXPORTS
 
-CXX_INCLUDES = -I/home/ubuntu/fengnet/fengnet-src 
+CXX_INCLUDES = -I/home/ubuntu/fengnet/fengnet-src -I/home/ubuntu/fengnet/service-src 
 

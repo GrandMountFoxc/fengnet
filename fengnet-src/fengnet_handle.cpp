@@ -68,6 +68,7 @@ void FengnetHandle::fengnet_handle_retireall() {
 				++n;
 			}
 			// rwlock_runlock(&s->lock);
+			lock.unlock();
 
 			if (handle != 0) {
 				fengnet_handle_retire(handle);
@@ -95,7 +96,7 @@ int FengnetHandle::fengnet_handle_retire(uint32_t handle){
 		for (i=0; i<n; ++i) {
 			if (s->name[i].handle == handle) {
 				// fengnet_free(s->name[i].name);
-				delete[] s->name[i].name;
+				delete s->name[i].name;
 				continue;
 			} else if (i!=j) {
 				s->name[j] = s->name[i];
@@ -130,7 +131,7 @@ fengnet_context* FengnetHandle::fengnet_handle_grab(uint32_t handle) {
 		FengnetServer::serverInst->fengnet_context_grab(result);
 	}
 
-	// rwlock_runlock(&s->lock);
+	lock.unlock();
 
 	return result;
 }
@@ -158,6 +159,8 @@ uint32_t FengnetHandle::fengnet_handle_findname(const char* name) {
 			end = mid - 1;
 		}
 	}
+
+	lock.unlock();
 
 	return handle;
 }
@@ -216,6 +219,8 @@ const char* FengnetHandle::fengnet_handle_namehandle(uint32_t handle, const char
 	std::unique_lock<std::shared_mutex> lock(H->lock);
 
 	const char * ret = _insert_name(H, name, handle);
+
+	lock.unlock();
 
 	return ret;
 }

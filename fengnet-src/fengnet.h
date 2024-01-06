@@ -12,6 +12,7 @@
 #include <cstring>
 #include <memory>
 #include <atomic>
+#include <iostream>
 #include <vector>
 #include <unordered_map>
 
@@ -80,7 +81,7 @@ public:
     const char* fengnet_command(fengnet_context* context, const char* cmd , const char* parm);  
 
     void fengnet_error(fengnet_context * context, const char *msg, ...);    // fengnet_error.cpp
-
+    uint32_t fengnet_queryname(struct fengnet_context * context, const char * name);
     int fengnet_send(fengnet_context* context, uint32_t source, uint32_t destination , int type, int session, void * msg, size_t sz);
     int fengnet_sendname(fengnet_context* context, uint32_t source, const char * destination , int type, int session, void * msg, size_t sz);
     int fengnet_isremote(fengnet_context *, uint32_t handle, int * harbor);

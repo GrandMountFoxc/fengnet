@@ -482,6 +482,17 @@ void Fengnet::copy_name(char name[GLOBALNAME_LENGTH], const char * addr) {
 	}
 }
 
+uint32_t Fengnet::fengnet_queryname(struct fengnet_context * context, const char * name) {
+	switch(name[0]) {
+	case ':':
+		return strtoul(name+1,NULL,16);
+	case '.':
+		return FengnetHandle::handleInst->fengnet_handle_findname(name + 1);
+	}
+	fengnet_error(context, "Don't support query global name %s",name);
+	return 0;
+}
+
 int Fengnet::fengnet_sendname(fengnet_context* context, uint32_t source, const char* addr , int type, int session, void* data, size_t sz) {
 	if (source == 0) {
 		source = context->handle;

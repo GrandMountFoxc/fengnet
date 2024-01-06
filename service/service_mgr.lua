@@ -1,6 +1,6 @@
-local skynet = require "skynet"
-require "skynet.manager"	-- import skynet.register
-local snax = require "skynet.snax"
+local fengnet = require "fengnet"
+require "fengnet.manager"	-- import fengnet.register
+local snax = require "fengnet.snax"
 
 local cmd = {}
 local service = {}
@@ -16,7 +16,7 @@ local function request(name, func, ...)
 	end
 
 	for _,v in ipairs(s) do
-		skynet.wakeup(v.co)
+		fengnet.wakeup(v.co)
 	end
 
 	if ok then
@@ -42,7 +42,7 @@ local function waitfor(name , func, ...)
 
 	assert(type(s) == "table")
 
-	local session, source = skynet.context()
+	local session, source = fengnet.context()
 
 	if s.launch == nil and func then
 		s.launch = {
@@ -58,7 +58,7 @@ local function waitfor(name , func, ...)
 		session = session,
 		source = source,
 	})
-	skynet.wait()
+	fengnet.wait()
 	s = service[name]
 	if type(s) == "string" then
 		error(s)
@@ -81,7 +81,7 @@ function cmd.LAUNCH(service_name, subname, ...)
 	if realname == "snaxd" then
 		return waitfor(service_name.."."..subname, snax.rawnewservice, subname, ...)
 	else
-		return waitfor(service_name, skynet.newservice, realname, subname, ...)
+		return waitfor(service_name, fengnet.newservice, realname, subname, ...)
 	end
 end
 
@@ -103,24 +103,24 @@ local function list_service()
 		elseif type(v) == "table" then
 			local querying = {}
 			if v.launch then
-				local session = skynet.task(v.launch.co)
-				local launching_address = skynet.call(".launcher", "lua", "QUERY", session)
+				local session = fengnet.task(v.launch.co)
+				local launching_address = fengnet.call(".launcher", "lua", "QUERY", session)
 				if launching_address then
-					table.insert(querying, "Init as " .. skynet.address(launching_address))
-					table.insert(querying,  skynet.call(launching_address, "debug", "TASK", "init"))
-					table.insert(querying, "Launching from " .. skynet.address(v.launch.source))
-					table.insert(querying, skynet.call(v.launch.source, "debug", "TASK", v.launch.session))
+					table.insert(querying, "Init as " .. fengnet.address(launching_address))
+					table.insert(querying,  fengnet.call(launching_address, "debug", "TASK", "init"))
+					table.insert(querying, "Launching from " .. fengnet.address(v.launch.source))
+					table.insert(querying, fengnet.call(v.launch.source, "debug", "TASK", v.launch.session))
 				end
 			end
 			if #v > 0 then
 				table.insert(querying , "Querying:" )
 				for _, detail in ipairs(v) do
-					table.insert(querying, skynet.address(detail.source) .. " " .. tostring(skynet.call(detail.source, "debug", "TASK", detail.session)))
+					table.insert(querying, fengnet.address(detail.source) .. " " .. tostring(fengnet.call(detail.source, "debug", "TASK", detail.session)))
 				end
 			end
 			v = table.concat(querying, "\n")
 		else
-			v = skynet.address(v)
+			v = fengnet.address(v)
 		end
 
 		result[k] = v
@@ -148,8 +148,8 @@ local function register_global()
 	end
 
 	local function add_list(all, m)
-		local harbor = "@" .. skynet.harbor(m)
-		local result = skynet.call(m, "lua", "LIST")
+		local harbor = "@" .. fengnet.harbor(m)
+		local result = fengnet.call(m, "lua", "LIST")
 		for k,v in pairs(result) do
 			all[k .. harbor] = v
 		end
@@ -177,7 +177,7 @@ local function register_local()
 		else
 			local_name = global_name
 		end
-		return waitfor(local_name, skynet.call, "SERVICE", "lua", cmd, global_name, ...)
+		return waitfor(local_name, fengnet.call, "SERVICE", "lua", cmd, global_name, ...)
 	end
 
 	function cmd.GLAUNCH(...)
@@ -192,34 +192,34 @@ local function register_local()
 		return list_service()
 	end
 
-	skynet.call("SERVICE", "lua", "REPORT", skynet.self())
+	fengnet.call("SERVICE", "lua", "REPORT", fengnet.self())
 end
 
-skynet.start(function()
-	skynet.dispatch("lua", function(session, address, command, ...)
+fengnet.start(function()
+	fengnet.dispatch("lua", function(session, address, command, ...)
 		local f = cmd[command]
 		if f == nil then
-			skynet.ret(skynet.pack(nil, "Invalid command " .. command))
+			fengnet.ret(fengnet.pack(nil, "Invalid command " .. command))
 			return
 		end
 
 		local ok, r = pcall(f, ...)
 
 		if ok then
-			skynet.ret(skynet.pack(r))
+			fengnet.ret(fengnet.pack(r))
 		else
-			skynet.ret(skynet.pack(nil, r))
+			fengnet.ret(fengnet.pack(nil, r))
 		end
 	end)
-	local handle = skynet.localname ".service"
+	local handle = fengnet.localname ".service"
 	if  handle then
-		skynet.error(".service is already register by ", skynet.address(handle))
-		skynet.exit()
+		fengnet.error(".service is already register by ", fengnet.address(handle))
+		fengnet.exit()
 	else
-		skynet.register(".service")
+		fengnet.register(".service")
 	end
-	if skynet.getenv "standalone" then
-		skynet.register("SERVICE")
+	if fengnet.getenv "standalone" then
+		fengnet.register("SERVICE")
 		register_global()
 	else
 		register_local()

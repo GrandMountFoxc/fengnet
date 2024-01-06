@@ -3,6 +3,7 @@
 FengnetTimer* FengnetTimer::timerInst;
 FengnetTimer::FengnetTimer(){
 	timerInst = this;
+	timerInst->TI = nullptr;
 }
 
 // link_clear()清空链表，头尾节点指向同一块内存

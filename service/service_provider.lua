@@ -1,4 +1,4 @@
-local skynet = require "skynet"
+local fengnet = require "fengnet"
 
 local provider = {}
 
@@ -15,10 +15,10 @@ local svr = setmetatable({}, { __index = new_service })
 function provider.query(name)
 	local s = svr[name]
 	if s.queue then
-		table.insert(s.queue, skynet.response())
+		table.insert(s.queue, fengnet.response())
 	else
 		if s.address then
-			return skynet.ret(skynet.pack(s.address))
+			return fengnet.ret(fengnet.pack(s.address))
 		else
 			error(s.error)
 		end
@@ -27,7 +27,7 @@ end
 
 local function boot(addr, name, code, ...)
 	local s = svr[name]
-	skynet.call(addr, "lua", "init", code, ...)
+	fengnet.call(addr, "lua", "init", code, ...)
 	local tmp = table.pack( ... )
 	for i=1,tmp.n do
 		tmp[i] = tostring(tmp[i])
@@ -36,20 +36,20 @@ local function boot(addr, name, code, ...)
 	if tmp.n > 0 then
 		s.init = table.concat(tmp, ",")
 	end
-	s.time = skynet.time()
+	s.time = fengnet.time()
 end
 
 function provider.launch(name, code, ...)
 	local s = svr[name]
 	if s.address then
-		return skynet.ret(skynet.pack(s.address))
+		return fengnet.ret(fengnet.pack(s.address))
 	end
 	if s.booting then
-		table.insert(s.queue, skynet.response())
+		table.insert(s.queue, fengnet.response())
 	else
 		s.booting = true
 		local err
-		local ok, addr = pcall(skynet.newservice,"service_cell", name)
+		local ok, addr = pcall(fengnet.newservice,"service_cell", name)
 		if ok then
 			ok, err = xpcall(boot, debug.traceback, addr, name, code, ...)
 		else
@@ -63,10 +63,10 @@ function provider.launch(name, code, ...)
 				resp(true, addr)
 			end
 			s.queue = nil
-			skynet.ret(skynet.pack(addr))
+			fengnet.ret(fengnet.pack(addr))
 		else
 			if addr then
-				skynet.send(addr, "debug", "EXIT")
+				fengnet.send(addr, "debug", "EXIT")
 			end
 			s.error = err
 			for _, resp in ipairs(s.queue) do
@@ -81,31 +81,31 @@ end
 function provider.test(name)
 	local s = svr[name]
 	if s.booting then
-		skynet.ret(skynet.pack(nil, true))	-- booting
+		fengnet.ret(fengnet.pack(nil, true))	-- booting
 	elseif s.address then
-		skynet.ret(skynet.pack(s.address))
+		fengnet.ret(fengnet.pack(s.address))
 	elseif s.error then
 		error(s.error)
 	else
-		skynet.ret()	-- nil
+		fengnet.ret()	-- nil
 	end
 end
 
 function provider.close(name)
 	local s = svr[name]
 	if not s or s.booting then
-		return skynet.ret(skynet.pack(nil))
+		return fengnet.ret(fengnet.pack(nil))
 	end
 
 	svr[name] = nil
-	skynet.ret(skynet.pack(s.address))
+	fengnet.ret(fengnet.pack(s.address))
 end
 
-skynet.start(function()
-	skynet.dispatch("lua", function(session, address, cmd, ...)
+fengnet.start(function()
+	fengnet.dispatch("lua", function(session, address, cmd, ...)
 		provider[cmd](...)
 	end)
-	skynet.info_func(function()
+	fengnet.info_func(function()
 		local info = {}
 		for k,v in pairs(svr) do
 			local status
@@ -114,7 +114,7 @@ skynet.start(function()
 			elseif v.queue then
 				status = "waiting(" .. #v.queue .. ")"
 			end
-			info[skynet.address(v.address)] = {
+			info[fengnet.address(v.address)] = {
 				init = v.init,
 				name = k,
 				time = os.date("%Y %b %d %T %z",math.floor(v.time)),

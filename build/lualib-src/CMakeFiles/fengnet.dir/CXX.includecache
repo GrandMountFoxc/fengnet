@@ -27,6 +27,8 @@ memory
 -
 atomic
 -
+iostream
+-
 vector
 -
 unordered_map
@@ -303,6 +305,8 @@ memory
 -
 atomic
 -
+iostream
+-
 vector
 -
 unordered_map
@@ -563,8 +567,8 @@ fengnet_imp.h
 /home/ubuntu/fengnet/fengnet-src/fengnet_imp.h
 fengnet_log.h
 /home/ubuntu/fengnet/fengnet-src/fengnet_log.h
-spinlock.h
-/home/ubuntu/fengnet/fengnet-src/spinlock.h
+spinlock_s.h
+/home/ubuntu/fengnet/fengnet-src/spinlock_s.h
 thread
 -
 cstring
@@ -791,6 +795,14 @@ thread
 -
 fengnet_malloc.h
 /home/ubuntu/fengnet/fengnet-src/fengnet_malloc.h
+
+/home/ubuntu/fengnet/fengnet-src/spinlock_s.h
+atomic.h
+/home/ubuntu/fengnet/fengnet-src/atomic.h
+immintrin.h
+-
+pthread.h
+-
 
 /home/ubuntu/fengnet/lualib-src/lsha1.cpp
 lsha1.h

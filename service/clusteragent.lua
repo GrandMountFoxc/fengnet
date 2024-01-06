@@ -1,7 +1,7 @@
-local skynet = require "skynet"
-local socket = require "skynet.socket"
-local cluster = require "skynet.cluster.core"
-local ignoreret = skynet.ignoreret
+local fengnet = require "fengnet"
+local socket = require "fengnet.socket"
+local cluster = require "fengnet.cluster.core"
+local ignoreret = fengnet.ignoreret
 
 local clusterd, gate, fd = ...
 clusterd = tonumber(clusterd)
@@ -17,18 +17,18 @@ local register_name_mt = { __index =
 		if waitco then
 			local co=coroutine.running()
 			table.insert(waitco, co)
-			skynet.wait(co)
+			fengnet.wait(co)
 			return rawget(self, name)
 		else
 			waitco = {}
 			inquery_name[name] = waitco
-			local addr = skynet.call(clusterd, "lua", "queryname", name:sub(2))	-- name must be '@xxxx'
+			local addr = fengnet.call(clusterd, "lua", "queryname", name:sub(2))	-- name must be '@xxxx'
 			if addr then
 				self[name] = addr
 			end
 			inquery_name[name] = nil
 			for _, co in ipairs(waitco) do
-				skynet.wakeup(co)
+				fengnet.wakeup(co)
 			end
 			return addr
 		end
@@ -44,7 +44,7 @@ local register_name = new_register_name()
 local tracetag
 
 local function dispatch_request(_,_,addr, session, msg, sz, padding, is_push)
-	ignoreret()	-- session is fd, don't call skynet.ret
+	ignoreret()	-- session is fd, don't call fengnet.ret
 	if session == nil then
 		-- trace
 		tracetag = addr
@@ -75,12 +75,12 @@ local function dispatch_request(_,_,addr, session, msg, sz, padding, is_push)
 	end
 	local ok, response
 	if addr == 0 then
-		local name = skynet.unpack(msg, sz)
-		skynet.trash(msg, sz)
+		local name = fengnet.unpack(msg, sz)
+		fengnet.trash(msg, sz)
 		local addr = register_name["@" .. name]
 		if addr then
 			ok = true
-			msg = skynet.packstring(addr)
+			msg = fengnet.packstring(addr)
 		else
 			ok = false
 			msg = "name not found"
@@ -92,14 +92,14 @@ local function dispatch_request(_,_,addr, session, msg, sz, padding, is_push)
 		end
 		if addr then
 			if is_push then
-				skynet.rawsend(addr, "lua", msg, sz)
+				fengnet.rawsend(addr, "lua", msg, sz)
 				return	-- no response
 			else
 				if tracetag then
-					ok , msg, sz = pcall(skynet.tracecall, tracetag, addr, "lua", msg, sz)
+					ok , msg, sz = pcall(fengnet.tracecall, tracetag, addr, "lua", msg, sz)
 					tracetag = nil
 				else
-					ok , msg, sz = pcall(skynet.rawcall, addr, "lua", msg, sz)
+					ok , msg, sz = pcall(fengnet.rawcall, addr, "lua", msg, sz)
 				end
 			end
 		else
@@ -122,24 +122,24 @@ local function dispatch_request(_,_,addr, session, msg, sz, padding, is_push)
 	end
 end
 
-skynet.start(function()
-	skynet.register_protocol {
+fengnet.start(function()
+	fengnet.register_protocol {
 		name = "client",
-		id = skynet.PTYPE_CLIENT,
+		id = fengnet.PTYPE_CLIENT,
 		unpack = cluster.unpackrequest,
 		dispatch = dispatch_request,
 	}
 	-- fd can write, but don't read fd, the data package will forward from gate though client protocol.
-	skynet.call(gate, "lua", "forward", fd)
+	fengnet.call(gate, "lua", "forward", fd)
 
-	skynet.dispatch("lua", function(_,source, cmd, ...)
+	fengnet.dispatch("lua", function(_,source, cmd, ...)
 		if cmd == "exit" then
 			socket.close_fd(fd)
-			skynet.exit()
+			fengnet.exit()
 		elseif cmd == "namechange" then
 			register_name = new_register_name()
 		else
-			skynet.error(string.format("Invalid command %s from %s", cmd, skynet.address(source)))
+			fengnet.error(string.format("Invalid command %s from %s", cmd, fengnet.address(source)))
 		end
 	end)
 end)

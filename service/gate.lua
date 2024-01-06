@@ -1,12 +1,12 @@
-local skynet = require "skynet"
+local fengnet = require "fengnet"
 local gateserver = require "snax.gateserver"
 
 local watchdog
 local connection = {}	-- fd -> connection : { fd , client, agent , ip, mode }
 
-skynet.register_protocol {
+fengnet.register_protocol {
 	name = "client",
-	id = skynet.PTYPE_CLIENT,
+	id = fengnet.PTYPE_CLIENT,
 }
 
 local handler = {}
@@ -22,11 +22,11 @@ function handler.message(fd, msg, sz)
 	local agent = c.agent
 	if agent then
 		-- It's safe to redirect msg directly , gateserver framework will not free msg.
-		skynet.redirect(agent, c.client, "client", fd, msg, sz)
+		fengnet.redirect(agent, c.client, "client", fd, msg, sz)
 	else
-		skynet.send(watchdog, "lua", "socket", "data", fd, skynet.tostring(msg, sz))
-		-- skynet.tostring will copy msg to a string, so we must free msg here.
-		skynet.trash(msg,sz)
+		fengnet.send(watchdog, "lua", "socket", "data", fd, fengnet.tostring(msg, sz))
+		-- fengnet.tostring will copy msg to a string, so we must free msg here.
+		fengnet.trash(msg,sz)
 	end
 end
 
@@ -36,7 +36,7 @@ function handler.connect(fd, addr)
 		ip = addr,
 	}
 	connection[fd] = c
-	skynet.send(watchdog, "lua", "socket", "open", fd, addr)
+	fengnet.send(watchdog, "lua", "socket", "open", fd, addr)
 end
 
 local function unforward(c)
@@ -56,16 +56,16 @@ end
 
 function handler.disconnect(fd)
 	close_fd(fd)
-	skynet.send(watchdog, "lua", "socket", "close", fd)
+	fengnet.send(watchdog, "lua", "socket", "close", fd)
 end
 
 function handler.error(fd, msg)
 	close_fd(fd)
-	skynet.send(watchdog, "lua", "socket", "error", fd, msg)
+	fengnet.send(watchdog, "lua", "socket", "error", fd, msg)
 end
 
 function handler.warning(fd, size)
-	skynet.send(watchdog, "lua", "socket", "warning", fd, size)
+	fengnet.send(watchdog, "lua", "socket", "warning", fd, size)
 end
 
 local CMD = {}

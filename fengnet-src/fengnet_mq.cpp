@@ -10,6 +10,7 @@
 FengnetMQ* FengnetMQ::mqInst;
 FengnetMQ::FengnetMQ(){
 	mqInst = this;
+	mqInst->Q = nullptr;
 }
 
 void FengnetMQ::fengnet_globalmq_push(message_queue* queue){
@@ -29,7 +30,7 @@ void FengnetMQ::fengnet_globalmq_push(message_queue* queue){
 message_queue* FengnetMQ::fengnet_globalmq_pop(){
     global_queue *q = Q;
 
-	lock_guard<SpinLock> lock(q->lock);
+	unique_lock<SpinLock> lock(q->lock);
 	message_queue *mq = q->head;
 	if(mq) {
 		q->head = mq->next;
@@ -39,6 +40,8 @@ message_queue* FengnetMQ::fengnet_globalmq_pop(){
 		}
 		mq->next = nullptr;
 	}
+
+	lock.unlock();
 
 	return mq;
 }
@@ -83,7 +86,7 @@ void FengnetMQ::fengnet_mq_mark_release(message_queue *q){
 
 int FengnetMQ::fengnet_mq_pop(message_queue* q, fengnet_message* message){
     int ret = 1;
-	lock_guard<SpinLock> lock(q->lock);
+	unique_lock<SpinLock> lock(q->lock);
 
 	if (q->head != q->tail) {
 		*message = q->queue[q->head++];
@@ -111,6 +114,8 @@ int FengnetMQ::fengnet_mq_pop(message_queue* q, fengnet_message* message){
 	if (ret) {
 		q->in_global = 0;
 	}
+
+	lock.unlock();
 
 	return ret;
 }

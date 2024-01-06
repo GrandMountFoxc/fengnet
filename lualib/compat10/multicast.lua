@@ -1,1 +1,1 @@
-return require "skynet.multicast"
+return require "fengnet.multicast"

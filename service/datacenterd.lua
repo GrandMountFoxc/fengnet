@@ -1,4 +1,4 @@
-local skynet = require "skynet"
+local fengnet = require "fengnet"
 
 local command = {}
 local database = {}
@@ -80,7 +80,7 @@ local function waitfor(db, key1, key2, ...)
 		else
 			assert(q[mode] == "queue")
 		end
-		table.insert(q, skynet.response())
+		table.insert(q, fengnet.response())
 	else
 		local q = db[key1]
 		if q == nil then
@@ -93,18 +93,18 @@ local function waitfor(db, key1, key2, ...)
 	end
 end
 
-skynet.start(function()
-	skynet.dispatch("lua", function (_, _, cmd, ...)
+fengnet.start(function()
+	fengnet.dispatch("lua", function (_, _, cmd, ...)
 		if cmd == "WAIT" then
 			local ret = command.QUERY(...)
 			if ret ~= nil then
-				skynet.ret(skynet.pack(ret))
+				fengnet.ret(fengnet.pack(ret))
 			else
 				waitfor(wait_queue, ...)
 			end
 		else
 			local f = assert(command[cmd])
-			skynet.ret(skynet.pack(f(...)))
+			fengnet.ret(fengnet.pack(f(...)))
 		end
 	end)
 end)

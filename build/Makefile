@@ -261,6 +261,32 @@ logger/fast:
 .PHONY : logger/fast
 
 #=============================================================================
+# Target rules for targets named harbor
+
+# Build rule for target.
+harbor: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 harbor
+.PHONY : harbor
+
+# fast build rule for target.
+harbor/fast:
+	$(MAKE) -f service-src/CMakeFiles/harbor.dir/build.make service-src/CMakeFiles/harbor.dir/build
+.PHONY : harbor/fast
+
+#=============================================================================
+# Target rules for targets named gate
+
+# Build rule for target.
+gate: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 gate
+.PHONY : gate
+
+# fast build rule for target.
+gate/fast:
+	$(MAKE) -f service-src/CMakeFiles/gate.dir/build.make service-src/CMakeFiles/gate.dir/build
+.PHONY : gate/fast
+
+#=============================================================================
 # Target rules for targets named Fengnet
 
 # Build rule for target.
@@ -293,6 +319,8 @@ help:
 	@echo "... lpeg"
 	@echo "... snlua"
 	@echo "... logger"
+	@echo "... harbor"
+	@echo "... gate"
 	@echo "... Fengnet"
 .PHONY : help
 

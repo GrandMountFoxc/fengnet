@@ -1,6 +1,6 @@
-local skynet = require "skynet"
-local snax   = require "skynet.snax"
-local socket = require "skynet.socket"
+local fengnet = require "fengnet"
+local snax   = require "fengnet.snax"
+local socket = require "fengnet.socket"
 
 local function split_cmdline(cmdline)
 	local split = {}
@@ -19,11 +19,11 @@ local function console_main_loop()
 		if command == "snax" then
 			pcall(snax.newservice, select(2, table.unpack(split)))
 		elseif cmdline ~= "" then
-			pcall(skynet.newservice, cmdline)
+			pcall(fengnet.newservice, cmdline)
 		end
 	end
 end
 
-skynet.start(function()
-	skynet.fork(console_main_loop)
+fengnet.start(function()
+	fengnet.fork(console_main_loop)
 end)

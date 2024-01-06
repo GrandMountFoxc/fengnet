@@ -130,7 +130,7 @@ CMAKE_OBJCOPY:FILEPATH=/usr/bin/objcopy
 CMAKE_OBJDUMP:FILEPATH=/usr/bin/objdump
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=fengnet
+CMAKE_PROJECT_NAME:STATIC=Fengnet
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/usr/bin/ranlib
@@ -181,6 +181,12 @@ CMAKE_STRIP:FILEPATH=/usr/bin/strip
 // Studio IDE projects all commands are done without /nologo.
 CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 
+//Value Computed by CMake
+Fengnet_BINARY_DIR:STATIC=/home/ubuntu/fengnet/build
+
+//Value Computed by CMake
+Fengnet_SOURCE_DIR:STATIC=/home/ubuntu/fengnet
+
 //Path to a library.
 LUA_LIBRARY:FILEPATH=/usr/local/lib/liblua.a
 
@@ -198,6 +204,12 @@ fengnet_LIB_DEPENDS:STATIC=general;/usr/local/lib/liblua.a;general;-lpthread;gen
 
 //Value Computed by CMake
 fengnet_SOURCE_DIR:STATIC=/home/ubuntu/fengnet
+
+//Dependencies for target
+gate_LIB_DEPENDS:STATIC=
+
+//Dependencies for target
+harbor_LIB_DEPENDS:STATIC=
 
 //Dependencies for target
 logger_LIB_DEPENDS:STATIC=

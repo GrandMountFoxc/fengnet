@@ -1,9 +1,9 @@
-local skynet = require "skynet"
-local codecache = require "skynet.codecache"
-local core = require "libskynet.core"
-local socket = require "skynet.socket"
-local snax = require "skynet.snax"
-local memory = require "skynet.memory"
+local fengnet = require "fengnet"
+local codecache = require "fengnet.codecache"
+local core = require "libfengnet.core"
+local socket = require "fengnet.socket"
+local snax = require "fengnet.snax"
+local memory = require "fengnet.memory"
 local httpd = require "http.httpd"
 local sockethelper = require "http.sockethelper"
 
@@ -90,8 +90,8 @@ local function docmd(cmdline, print, fd)
 end
 
 local function console_main_loop(stdin, print, addr)
-	print("Welcome to skynet console")
-	skynet.error(addr, "connected")
+	print("Welcome to fengnet console")
+	fengnet.error(addr, "connected")
 	local ok, err = pcall(function()
 		while true do
 			local cmdline = socket.readline(stdin, "\n")
@@ -111,15 +111,15 @@ local function console_main_loop(stdin, print, addr)
 		end
 	end)
 	if not ok then
-		skynet.error(stdin, err)
+		fengnet.error(stdin, err)
 	end
-	skynet.error(addr, "disconnect")
+	fengnet.error(addr, "disconnect")
 	socket.close(stdin)
 end
 
-skynet.start(function()
+fengnet.start(function()
 	local listen_socket, ip, port = socket.listen (ip, port)
-	skynet.error("Start debug console at " .. ip .. ":" .. port)
+	fengnet.error("Start debug console at " .. ip .. ":" .. port)
 	socket.start(listen_socket , function(id, addr)
 		local function print(...)
 			local t = { ... }
@@ -130,7 +130,7 @@ skynet.start(function()
 			socket.write(id, "\n")
 		end
 		socket.start(id)
-		skynet.fork(console_main_loop, id , print, addr)
+		fengnet.fork(console_main_loop, id , print, addr)
 	end)
 end)
 
@@ -174,10 +174,10 @@ function COMMAND.clearcache()
 end
 
 function COMMAND.start(...)
-	local ok, addr = pcall(skynet.newservice, ...)
+	local ok, addr = pcall(fengnet.newservice, ...)
 	if ok then
 		if addr then
-			return { [skynet.address(addr)] = ... }
+			return { [fengnet.address(addr)] = ... }
 		else
 			return "Exit"
 		end
@@ -187,10 +187,10 @@ function COMMAND.start(...)
 end
 
 function COMMAND.log(...)
-	local ok, addr = pcall(skynet.call, ".launcher", "lua", "LOGLAUNCH", "snlua", ...)
+	local ok, addr = pcall(fengnet.call, ".launcher", "lua", "LOGLAUNCH", "snlua", ...)
 	if ok then
 		if addr then
-			return { [skynet.address(addr)] = ... }
+			return { [fengnet.address(addr)] = ... }
 		else
 			return "Failed"
 		end
@@ -203,28 +203,28 @@ function COMMAND.snax(...)
 	local ok, s = pcall(snax.newservice, ...)
 	if ok then
 		local addr = s.handle
-		return { [skynet.address(addr)] = ... }
+		return { [fengnet.address(addr)] = ... }
 	else
 		return "Failed"
 	end
 end
 
 function COMMAND.service()
-	return skynet.call("SERVICE", "lua", "LIST")
+	return fengnet.call("SERVICE", "lua", "LIST")
 end
 
 local function adjust_address(address)
 	local prefix = address:sub(1,1)
 	if prefix == '.' then
-		return assert(skynet.localname(address), "Not a valid name")
+		return assert(fengnet.localname(address), "Not a valid name")
 	elseif prefix ~= ':' then
-		address = assert(tonumber("0x" .. address), "Need an address") | (skynet.harbor(skynet.self()) << 24)
+		address = assert(tonumber("0x" .. address), "Need an address") | (fengnet.harbor(fengnet.self()) << 24)
 	end
 	return address
 end
 
 function COMMAND.list()
-	return skynet.call(".launcher", "lua", "LIST")
+	return fengnet.call(".launcher", "lua", "LIST")
 end
 
 local function timeout(ti)
@@ -240,23 +240,23 @@ local function timeout(ti)
 end
 
 function COMMAND.stat(ti)
-	return skynet.call(".launcher", "lua", "STAT", timeout(ti))
+	return fengnet.call(".launcher", "lua", "STAT", timeout(ti))
 end
 
 function COMMAND.mem(ti)
-	return skynet.call(".launcher", "lua", "MEM", timeout(ti))
+	return fengnet.call(".launcher", "lua", "MEM", timeout(ti))
 end
 
 function COMMAND.kill(address)
-	return skynet.call(".launcher", "lua", "KILL", adjust_address(address))
+	return fengnet.call(".launcher", "lua", "KILL", adjust_address(address))
 end
 
 function COMMAND.gc(ti)
-	return skynet.call(".launcher", "lua", "GC", timeout(ti))
+	return fengnet.call(".launcher", "lua", "GC", timeout(ti))
 end
 
 function COMMAND.exit(address)
-	skynet.send(adjust_address(address), "debug", "EXIT")
+	fengnet.send(adjust_address(address), "debug", "EXIT")
 end
 
 function COMMAND.inject(address, filename, ...)
@@ -267,7 +267,7 @@ function COMMAND.inject(address, filename, ...)
 	end
 	local source = f:read "*a"
 	f:close()
-	local ok, output = skynet.call(address, "debug", "RUN", source, filename, ...)
+	local ok, output = fengnet.call(address, "debug", "RUN", source, filename, ...)
 	if ok == false then
 		error(output)
 	end
@@ -276,7 +276,7 @@ end
 
 function COMMAND.dbgcmd(address, cmd, ...)
 	address = adjust_address(address)
-	return skynet.call(address, "debug", cmd, ...)
+	return fengnet.call(address, "debug", cmd, ...)
 end
 
 function COMMAND.task(address)
@@ -297,35 +297,35 @@ end
 
 function COMMANDX.debug(cmd)
 	local address = adjust_address(cmd[2])
-	local agent = skynet.newservice "debug_agent"
+	local agent = fengnet.newservice "debug_agent"
 	local stop
 	local term_co = coroutine.running()
 	local function forward_cmd()
 		repeat
 			-- notice :  It's a bad practice to call socket.readline from two threads (this one and console_main_loop), be careful.
-			skynet.call(agent, "lua", "ping")	-- detect agent alive, if agent exit, raise error
+			fengnet.call(agent, "lua", "ping")	-- detect agent alive, if agent exit, raise error
 			local cmdline = socket.readline(cmd.fd, "\n")
 			cmdline = cmdline and cmdline:gsub("(.*)\r$", "%1")
 			if not cmdline then
-				skynet.send(agent, "lua", "cmd", "cont")
+				fengnet.send(agent, "lua", "cmd", "cont")
 				break
 			end
-			skynet.send(agent, "lua", "cmd", cmdline)
+			fengnet.send(agent, "lua", "cmd", cmdline)
 		until stop or cmdline == "cont"
 	end
-	skynet.fork(function()
+	fengnet.fork(function()
 		pcall(forward_cmd)
-		if not stop then	-- block at skynet.call "start"
+		if not stop then	-- block at fengnet.call "start"
 			term_co = nil
 		else
-			skynet.wakeup(term_co)
+			fengnet.wakeup(term_co)
 		end
 	end)
-	local ok, err = skynet.call(agent, "lua", "start", address, cmd.fd)
+	local ok, err = fengnet.call(agent, "lua", "start", address, cmd.fd)
 	stop = true
 	if term_co then
 		-- wait for fork coroutine exit.
-		skynet.wait(term_co)
+		fengnet.wait(term_co)
 	end
 
 	if not ok then
@@ -335,16 +335,16 @@ end
 
 function COMMAND.logon(address)
 	address = adjust_address(address)
-	core.command("LOGON", skynet.address(address))
+	core.command("LOGON", fengnet.address(address))
 end
 
 function COMMAND.logoff(address)
 	address = adjust_address(address)
-	core.command("LOGOFF", skynet.address(address))
+	core.command("LOGOFF", fengnet.address(address))
 end
 
 function COMMAND.signal(address, sig)
-	address = skynet.address(adjust_address(address))
+	address = fengnet.address(adjust_address(address))
 	if sig then
 		core.command("SIGNAL", string.format("%s %d",address,sig))
 	else
@@ -356,7 +356,7 @@ function COMMAND.cmem()
 	local info = memory.info()
 	local tmp = {}
 	for k,v in pairs(info) do
-		tmp[skynet.address(k)] = v
+		tmp[fengnet.address(k)] = v
 	end
 	tmp.total = memory.total()
 	tmp.block = memory.block()
@@ -375,9 +375,9 @@ end
 
 function COMMAND.ping(address)
 	address = adjust_address(address)
-	local ti = skynet.now()
-	skynet.call(address, "debug", "PING")
-	ti = skynet.now() - ti
+	local ti = fengnet.now()
+	fengnet.call(address, "debug", "PING")
+	ti = fengnet.now() - ti
 	return tostring(ti)
 end
 
@@ -394,7 +394,7 @@ function COMMAND.trace(address, proto, flag)
 	else
 		flag = toboolean(flag)
 	end
-	skynet.call(address, "debug", "TRACELOG", proto, flag)
+	fengnet.call(address, "debug", "TRACELOG", proto, flag)
 end
 
 function COMMANDX.call(cmd)
@@ -405,7 +405,7 @@ function COMMANDX.call(cmd)
 	if not args[1] then
 		error(args[2])
 	end
-	local rets = table.pack(skynet.call(address, "lua", table.unpack(args, 2, args.n)))
+	local rets = table.pack(fengnet.call(address, "lua", table.unpack(args, 2, args.n)))
 	return rets
 end
 
@@ -423,7 +423,7 @@ local function bytes(size)
 end
 
 local function convert_stat(info)
-	local now = skynet.now()
+	local now = fengnet.now()
 	local function time(t)
 		if t == nil then
 			return
@@ -440,7 +440,7 @@ local function convert_stat(info)
 		return string.format("%s%d:%.2gs",hour == 0 and "" or (hour .. ":"),min,sec)
 	end
 
-	info.address = skynet.address(info.address)
+	info.address = fengnet.address(info.address)
 	info.read = bytes(info.read)
 	info.write = bytes(info.write)
 	info.wbuffer = bytes(info.wbuffer)

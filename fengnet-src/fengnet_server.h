@@ -1,6 +1,8 @@
 #ifndef FENGNET_SERVER_H
 #define FENGNET_SERVER_H
 
+#define CALLING_CHECK
+
 #ifdef CALLING_CHECK
 
 #define CHECKCALLING_BEGIN(ctx) if (!(spinlock_trylock(&ctx->calling))) { assert(0); }
@@ -8,6 +10,16 @@
 #define CHECKCALLING_INIT(ctx) spinlock_init(&ctx->calling);
 #define CHECKCALLING_DESTROY(ctx) spinlock_destroy(&ctx->calling);
 #define CHECKCALLING_DECL struct spinlock calling;
+
+// #define CHECKCALLING_BEGIN(ctx) if (!(ctx->calling.trylock())) { assert(0); }
+// #define CHECKCALLING_END(ctx) ctx->calling.unlock();
+// #define CHECKCALLING_INIT(ctx) spinlock_init(&ctx->calling);
+// #define CHECKCALLING_DESTROY(ctx) spinlock_destroy(&ctx->calling);
+// #define CHECKCALLING_DECL SpinLock calling;
+
+// 直接加锁会死锁？
+// #define CHECKCALLING_BEGIN(lock) lock.lock();   // if (!(lock.trylock())) { assert(0); }
+// #define CHECKCALLING_END(lock) lock.unlock();
 
 #else
 
@@ -98,6 +110,7 @@ private:
     // uint32_t tohandle(fengnet_context* context, const char* param);
     // void id_to_hex(char* str, uint32_t id);
 private:
+    SpinLock lock;
     // fengnet_node G_NODE;
     // shared_ptr<FengnetModule> fengnetModule;
     // shared_ptr<FengnetMQ> fengnetMQ;

@@ -56,11 +56,18 @@ public:
 	const char* fengnet_socket_udp_address(struct fengnet_socket_message *, int *addrsz);
 
 	struct socket_info * fengnet_socket_info();
+	
+	// legacy APIs
+	inline void sendbuffer_init_(struct socket_sendbuffer *buf, int id, const void *buffer, int sz);
+	inline int fengnet_socket_send(struct fengnet_context *ctx, int id, void *buffer, int sz);
+	inline int fengnet_socket_send_lowpriority(struct fengnet_context *ctx, int id, void *buffer, int sz);
+	inline int fengnet_socket_udp_send(struct fengnet_context *ctx, int id, const char * address, const void *buffer, int sz);
 private:
     socket_server* SOCKET_SERVER;
 	// shared_ptr<FengnetServer> fengnetServer;
 private:
 	void forward_message(int type, bool padding, struct socket_message * result);
+	
 };
 
 #endif

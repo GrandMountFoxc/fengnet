@@ -1,11 +1,11 @@
-local skynet = require "skynet"
-local c = require "libskynet.core"
+local fengnet = require "fengnet"
+local c = require "libfengnet.core"
 local snax_interface = require "snax.interface"
-local profile = require "skynet.profile"
-local snax = require "skynet.snax"
+local profile = require "fengnet.profile"
+local snax = require "fengnet.snax"
 
 local snax_name = tostring(...)
-local loaderpath = skynet.getenv"snax_loader"
+local loaderpath = fengnet.getenv"snax_loader"
 local loader = loaderpath and assert(dofile(loaderpath))
 local func, pattern = snax_interface(snax_name, _ENV, loader)
 local snax_path = pattern:sub(1,pattern:find("?", 1, true)-1) .. snax_name ..  "/"
@@ -29,7 +29,7 @@ end
 local traceback = debug.traceback
 
 local function return_f(f, ...)
-	return skynet.ret(skynet.pack(f(...)))
+	return fengnet.ret(fengnet.pack(f(...)))
 end
 
 local function timing( method, ... )
@@ -46,7 +46,7 @@ local function timing( method, ... )
 	assert(err,msg)
 end
 
-skynet.start(function()
+fengnet.start(function()
 	local init = false
 	local function dispatcher( session , source , id, ...)
 		local method = func[id]
@@ -55,15 +55,15 @@ skynet.start(function()
 			local command = method[3]
 			if command == "hotfix" then
 				local hotfix = require "snax.hotfix"
-				skynet.ret(skynet.pack(hotfix(func, ...)))
+				fengnet.ret(fengnet.pack(hotfix(func, ...)))
 			elseif command == "profile" then
-				skynet.ret(skynet.pack(profile_table))
+				fengnet.ret(fengnet.pack(profile_table))
 			elseif command == "init" then
 				assert(not init, "Already init")
 				local initfunc = method[4] or function() end
 				initfunc(...)
-				skynet.ret()
-				skynet.info_func(function()
+				fengnet.ret()
+				fengnet.info_func(function()
 					return profile_table
 				end)
 				init = true
@@ -72,19 +72,19 @@ skynet.start(function()
 				assert(command == "exit")
 				local exitfunc = method[4] or function() end
 				exitfunc(...)
-				skynet.ret()
+				fengnet.ret()
 				init = false
-				skynet.exit()
+				fengnet.exit()
 			end
 		else
 			assert(init, "Init first")
 			timing(method, ...)
 		end
 	end
-	skynet.dispatch("snax", dispatcher)
+	fengnet.dispatch("snax", dispatcher)
 
 	-- set lua dispatcher
 	function snax.enablecluster()
-		skynet.dispatch("lua", dispatcher)
+		fengnet.dispatch("lua", dispatcher)
 	end
 end)

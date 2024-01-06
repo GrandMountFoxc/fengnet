@@ -1,1 +1,1 @@
-return require "skynet.db.mysql"
+return require "fengnet.db.mysql"
